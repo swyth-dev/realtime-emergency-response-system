@@ -1,4 +1,4 @@
-package com.swyth.bedavailabilityservice;
+package com.swyth.hospitalservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
