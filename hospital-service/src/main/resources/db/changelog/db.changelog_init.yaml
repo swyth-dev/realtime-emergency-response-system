@@ -118,7 +118,7 @@ databaseChangeLog:
       author: yoann
       changes:
         - loadData:
-            file: db/changelog/data/seed-medical-specialities.csv
+            file: db/data/seed-medical-specialities.csv
             tableName: medical_specialization
             separator: ","
             encoding: UTF-8
