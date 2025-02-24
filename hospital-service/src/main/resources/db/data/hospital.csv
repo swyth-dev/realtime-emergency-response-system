@@ -1,0 +1,4 @@
+name,address,post_code,city,latitude,longitude,available_beds
+Central Hospital,123 Main Street,12345,New York,40.7128,-74.0060,500
+Memorial Hospital,456 Park Avenue,67890,Boston,42.3601,-71.0589,300
+Community Medical Center,789 Oak Road,34567,Chicago,41.8781,-87.6298,400

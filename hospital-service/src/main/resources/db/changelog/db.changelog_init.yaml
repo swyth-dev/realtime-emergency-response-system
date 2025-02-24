@@ -113,12 +113,3 @@ databaseChangeLog:
             constraintName: fk_hosmedspe_on_medical_specialization
             referencedColumnNames: id
             referencedTableName: medical_specialization
-  - changeSet:
-      id: 1739801721828-7
-      author: yoann
-      changes:
-        - loadData:
-            file: db/data/seed-medical-specialities.csv
-            tableName: medical_specialization
-            separator: ","
-            encoding: UTF-8

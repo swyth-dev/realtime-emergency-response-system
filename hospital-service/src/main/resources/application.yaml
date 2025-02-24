@@ -30,7 +30,7 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yaml # Changelog for only this microservice
     default-schema: ${my.db.schemaname}
-#    enabled: true TODO: know why I can't find  the yaml changelog on starting application. Mandatory to avoid manual schema creation.
+    enabled: true # TODO: know why I can't find  the yaml changelog on starting application. Mandatory to avoid manual schema creation.
     liquibase-schema: ${my.db.schemaname}
   sql:
     init:
