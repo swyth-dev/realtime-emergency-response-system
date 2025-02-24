@@ -1,0 +1,13 @@
+databaseChangeLog:
+  #
+  #
+  - include:
+      file: db.changelog_init.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: db/changelog/2025/02/24-01-changelog.yaml
+
+
+  - include: # In last to update data model before seeding
+      file: db.changelog_data.yaml
+      relativeToChangelogFile: true

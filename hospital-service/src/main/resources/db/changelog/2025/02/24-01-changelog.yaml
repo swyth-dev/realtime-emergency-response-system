@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1740411083259-1
+      author: yoann
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropUniqueConstraint:
+            constraintName: uc_hospital_medical_specializations_medicalspecializations
+            tableName: hospital_medical_specializations
+

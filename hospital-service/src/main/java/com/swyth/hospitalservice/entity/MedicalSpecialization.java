@@ -7,7 +7,7 @@ import lombok.*;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "medical_specialization", schema = "hospital-service")
+@Table(name = "medical_specialization")
 public class MedicalSpecialization {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
