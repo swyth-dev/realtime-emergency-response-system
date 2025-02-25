@@ -1,6 +1,5 @@
 package com.swyth.hospitalservice.dto;
 
-import com.swyth.hospitalservice.entity.Hospital;
 import com.swyth.hospitalservice.entity.MedicalSpecialization;
 
 import java.util.ArrayList;
