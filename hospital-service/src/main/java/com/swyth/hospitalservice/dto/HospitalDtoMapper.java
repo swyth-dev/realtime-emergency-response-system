@@ -13,7 +13,7 @@ public class HospitalDtoMapper {
 
     public static HospitalDTO convertToDTO(Hospital hospital) {
         List<String> specializations = hospital.getSpecializations().stream()
-                .map(MedicalSpecialization::getSpecializationName)
+                .map(hba -> hba.getMedicalSpecialization().getSpecializationName())
                 .collect(Collectors.toList());
 
         return new HospitalDTO(
@@ -24,7 +24,6 @@ public class HospitalDtoMapper {
                 hospital.getCity(),
                 hospital.getLatitude(),
                 hospital.getLongitude(),
-                hospital.getAvailableBeds(),
                 specializations
         );
     }

@@ -17,6 +17,5 @@ public class HospitalDTO {
     private String city;
     private double latitude;
     private double longitude;
-    private int availableBeds;
     private List<String> specializations;
 }

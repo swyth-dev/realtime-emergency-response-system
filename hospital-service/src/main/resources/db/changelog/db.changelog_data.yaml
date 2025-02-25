@@ -22,7 +22,7 @@ databaseChangeLog:
       author: yoann
       changes:
         - loadData:
-            file: db/data/hospital_medical_specializations.csv
-            tableName: hospital_medical_specializations
+            file: db/data/hospital_bed_availabilities.csv
+            tableName: hospital_bed_availability
             separator: ","
             encoding: UTF-8

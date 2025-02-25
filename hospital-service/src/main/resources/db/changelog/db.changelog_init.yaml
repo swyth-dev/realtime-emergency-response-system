@@ -1,5 +1,13 @@
 databaseChangeLog:
   - changeSet:
+      id: create-schema
+      author: yoann
+      changes:
+        - sql:
+            dbms: postgresql
+            splitStatements: false
+            sql: "CREATE SCHEMA IF NOT EXISTS medhead_hospital_service"
+  - changeSet:
       id: 1739801721828-1
       author: yoann
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS

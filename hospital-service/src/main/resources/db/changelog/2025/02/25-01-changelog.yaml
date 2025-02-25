@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-hospital-bed-availability
+      author: yoann
+      changes:
+        - createTable:
+            tableName: hospital_bed_availability
+            columns:
+              - column:
+                  name: hospital_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_hba_hospital
+                    referencedTableName: hospital
+                    referencedColumnNames: id
+              - column:
+                  name: medical_specialization_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_hba_specialization
+                    referencedTableName: medical_specialization
+                    referencedColumnNames: id
+              - column:
+                  name: available_beds
+                  type: INT
+        - addPrimaryKey:
+            tableName: hospital_bed_availability
+            columnNames: hospital_id, medical_specialization_id
+            constraintName: pk_hospital_bed_availability
+  - changeSet:
+      id: migrate-data
+      author: yoann
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO medhead_hospital_service.hospital_bed_availability (hospital_id, medical_specialization_id, available_beds)
+              SELECT hospital_id, medical_specializations_id, 0
+              FROM medhead_hospital_service.hospital_medical_specializations;
+
+  - changeSet:
+      id: drop-old-join-table
+      author: yoann
+      changes:
+        - dropTable:
+            tableName: hospital_medical_specializations

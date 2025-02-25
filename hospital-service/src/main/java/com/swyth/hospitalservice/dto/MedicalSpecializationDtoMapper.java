@@ -3,6 +3,7 @@ package com.swyth.hospitalservice.dto;
 import com.swyth.hospitalservice.entity.Hospital;
 import com.swyth.hospitalservice.entity.MedicalSpecialization;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,9 +13,9 @@ public class MedicalSpecializationDtoMapper {
     }
 
     public static MedicalSpecializationDTO convertToDTO(MedicalSpecialization specializations) {
-        List<String> hospitals = specializations.getHospitals().stream()
-                .map(Hospital::getName)
-                .collect(Collectors.toList());
+        // Create a shallow copy of the hospitals set to avoid concurrent modification
+        List<String> hospitals = new ArrayList<>(specializations.getHospitals().size());
+        specializations.getHospitals().forEach(hba -> hospitals.add(hba.getHospital().getName()));
 
         return new MedicalSpecializationDTO(
                 specializations.getId(),

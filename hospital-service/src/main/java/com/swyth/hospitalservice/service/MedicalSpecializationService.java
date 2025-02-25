@@ -5,6 +5,7 @@ import com.swyth.hospitalservice.dto.MedicalSpecializationDtoMapper;
 import com.swyth.hospitalservice.entity.MedicalSpecialization;
 import com.swyth.hospitalservice.repository.MedicalSpecializationRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +19,9 @@ public class MedicalSpecializationService {
         this.medicalSpecializationRepository = medicalSpecializationRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<MedicalSpecializationDTO> findAll() {
-        List<MedicalSpecialization> medicalSpecializations = new ArrayList<>(medicalSpecializationRepository.findAll());
-        return MedicalSpecializationDtoMapper.convertToDTO(medicalSpecializations);
+        List<MedicalSpecialization> specializations = medicalSpecializationRepository.findAll();
+        return MedicalSpecializationDtoMapper.convertToDTO(specializations);
     }
 }

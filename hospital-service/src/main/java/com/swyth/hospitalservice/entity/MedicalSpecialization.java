@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -24,7 +23,8 @@ public class MedicalSpecialization {
     @JsonProperty("specialization_group")
     private String specializationGroup;
 
-    @ManyToMany(mappedBy = "specializations", fetch = FetchType.EAGER) // Referencing Student's ManyToMany field
-    private Set<Hospital> hospitals = new HashSet<>();
+    @OneToMany(mappedBy = "medicalSpecialization", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<HospitalBedAvailability> hospitals;
     // TODO: check https://www.baeldung.com/jpa-many-to-many to add an additional field to relation jointure table
+
 }

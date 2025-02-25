@@ -1,17 +1,16 @@
 package com.swyth.hospitalservice.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "hospital")
 public class Hospital {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
@@ -35,15 +34,7 @@ public class Hospital {
     @JsonProperty("longitude")
     private double longitude;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinTable(
-            name = "hospital_medical_specializations",
-            joinColumns = @JoinColumn(name = "hospital_id"),
-            inverseJoinColumns = @JoinColumn(name = "medical_specializations_id")
-    )
+    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonProperty("specializations")
-    private Set<MedicalSpecialization> specializations = new HashSet<>();
-
-    @JsonProperty("available_beds")
-    private int availableBeds;
+    private Set<HospitalBedAvailability> specializations;
 }
