@@ -1,5 +1,6 @@
 package com.swyth.hospitalservice.controller;
 
+import com.swyth.hospitalservice.dto.MedicalSpecializationDTO;
 import com.swyth.hospitalservice.entity.MedicalSpecialization;
 import com.swyth.hospitalservice.service.MedicalSpecializationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,8 @@ public class MedicalSpecializationController {
     private MedicalSpecializationService medicalSpecializationService;
 
     @GetMapping("/specializations")
-    public ResponseEntity<List<MedicalSpecialization>> getMedicalSpecializations() {
-        List<MedicalSpecialization> medicalSpecializationsReponse = medicalSpecializationService.findAll();
-        System.out.println("Fetched Data: " + medicalSpecializationsReponse);
-        return ResponseEntity.ok(medicalSpecializationsReponse);
+    public ResponseEntity<List<MedicalSpecializationDTO>> getMedicalSpecializations() {
+        List<MedicalSpecializationDTO> medicalSpecializations = medicalSpecializationService.findAll();
+        return ResponseEntity.ok(medicalSpecializations);
     }
 }

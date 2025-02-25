@@ -1,5 +1,7 @@
 package com.swyth.hospitalservice.service;
 
+import com.swyth.hospitalservice.dto.MedicalSpecializationDTO;
+import com.swyth.hospitalservice.dto.MedicalSpecializationDtoMapper;
 import com.swyth.hospitalservice.entity.MedicalSpecialization;
 import com.swyth.hospitalservice.repository.MedicalSpecializationRepository;
 import org.springframework.stereotype.Service;
@@ -16,8 +18,8 @@ public class MedicalSpecializationService {
         this.medicalSpecializationRepository = medicalSpecializationRepository;
     }
 
-    public List<MedicalSpecialization> findAll() {
+    public List<MedicalSpecializationDTO> findAll() {
         List<MedicalSpecialization> medicalSpecializations = new ArrayList<>(medicalSpecializationRepository.findAll());
-        return medicalSpecializations;
+        return MedicalSpecializationDtoMapper.convertToDTO(medicalSpecializations);
     }
 }
