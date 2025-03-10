@@ -1,5 +1,6 @@
 package com.swyth.hospitalservice.dto;
 
+import com.swyth.hospitalservice.entity.Hospital;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,5 @@ public class HospitalDTO {
     private String city;
     private double latitude;
     private double longitude;
-    private int availableBeds;
-    private List<String> specializations;
+    private List<Hospital.SpecializationAvailability> specializations;
 }

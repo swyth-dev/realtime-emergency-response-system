@@ -1,0 +1,73 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1741014481696-4
+      author: yoann
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: hospital_medical_specializations
+            constraintName: fk_hosmedspe_on_hospital
+  - changeSet:
+      id: 1741014481696-5
+      author: yoann
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: hospital_medical_specializations
+            constraintName: fk_hosmedspe_on_medical_specialization
+  - changeSet:
+      id: 1741014481696-1
+      author: yoann
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_hospital_bed_availability
+                  name: hospital_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_hospital_bed_availability
+                  name: medical_specialization_id
+                  type: BIGINT
+              - column:
+                  name: available_beds
+                  type: INT
+            tableName: hospital_bed_availability
+  - changeSet:
+      id: 1741014481696-2
+      author: yoann
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: hospital_id
+            baseTableName: hospital_bed_availability
+            constraintName: FK_HOSPITAL_BED_AVAILABILITY_ON_HOSPITAL
+            referencedColumnNames: id
+            referencedTableName: hospital
+  - changeSet:
+      id: 1741014481696-3
+      author: yoann
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: medical_specialization_id
+            baseTableName: hospital_bed_availability
+            constraintName: FK_HOSPITAL_BED_AVAILABILITY_ON_MEDICAL_SPECIALIZATION
+            referencedColumnNames: id
+            referencedTableName: medical_specialization
+  - changeSet:
+      id: 1741014481696-6
+      author: yoann
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropTable:
+            cascadeConstraints: true
+            tableName: hospital_medical_specializations
+

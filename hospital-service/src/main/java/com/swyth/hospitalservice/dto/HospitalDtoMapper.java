@@ -1,9 +1,9 @@
 package com.swyth.hospitalservice.dto;
 
 import com.swyth.hospitalservice.entity.Hospital;
-import com.swyth.hospitalservice.entity.MedicalSpecialization;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class HospitalDtoMapper {
@@ -12,10 +12,6 @@ public class HospitalDtoMapper {
     }
 
     public static HospitalDTO convertToDTO(Hospital hospital) {
-        List<String> specializations = hospital.getSpecializations().stream()
-                .map(MedicalSpecialization::getSpecializationName)
-                .collect(Collectors.toList());
-
         return new HospitalDTO(
                 hospital.getId(),
                 hospital.getName(),
@@ -24,12 +20,19 @@ public class HospitalDtoMapper {
                 hospital.getCity(),
                 hospital.getLatitude(),
                 hospital.getLongitude(),
-                hospital.getAvailableBeds(),
-                specializations
+                hospital.getHospitalBedAvailabilities().stream()
+                        .map(hospitalBedAvailability -> new Hospital.SpecializationAvailability(
+                                hospitalBedAvailability.getSpecialization().getId(),
+                                hospitalBedAvailability.getSpecialization().getSpecializationName(),
+                                hospitalBedAvailability.getAvailable_beds()
+                        ))
+                        .toList()
         );
     }
 
-    public static List<HospitalDTO> convertToDTO(List<Hospital> hospitals) {
-        return hospitals.stream().map(HospitalDtoMapper::convertToDTO).collect(Collectors.toList());
+    public static List<HospitalDTO> convertToDTO(Set<Hospital> hospitals) {
+        return hospitals.stream()
+                .map(HospitalDtoMapper::convertToDTO)
+                .collect(Collectors.toList());
     }
 }

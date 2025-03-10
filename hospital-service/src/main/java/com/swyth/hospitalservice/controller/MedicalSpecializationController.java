@@ -1,7 +1,6 @@
 package com.swyth.hospitalservice.controller;
 
 import com.swyth.hospitalservice.dto.MedicalSpecializationDTO;
-import com.swyth.hospitalservice.entity.MedicalSpecialization;
 import com.swyth.hospitalservice.service.MedicalSpecializationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

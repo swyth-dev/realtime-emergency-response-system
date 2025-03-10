@@ -1,8 +1,6 @@
 package com.swyth.hospitalservice.controller;
 
 import com.swyth.hospitalservice.dto.HospitalDTO;
-import com.swyth.hospitalservice.dto.HospitalDtoMapper;
-import com.swyth.hospitalservice.entity.Hospital;
 import com.swyth.hospitalservice.service.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
