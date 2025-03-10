@@ -1,5 +1,6 @@
 package com.swyth.hospitalservice.dto;
 
+import com.swyth.hospitalservice.entity.MedicalSpecialization;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,5 +14,5 @@ public class MedicalSpecializationDTO {
     private Long id;
     private String specializationName;
     private String specializationGroup;
-    private List<String> hospitals;
+    private List<MedicalSpecialization.HospitalAvailability> hospitals;
 }
