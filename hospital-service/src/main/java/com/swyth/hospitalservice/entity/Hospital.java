@@ -1,11 +1,13 @@
 package com.swyth.hospitalservice.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -13,7 +15,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Hospital {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
     private Long id;
 
@@ -35,15 +38,29 @@ public class Hospital {
     @JsonProperty("longitude")
     private double longitude;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinTable(
-            name = "hospital_medical_specializations",
-            joinColumns = @JoinColumn(name = "hospital_id"),
-            inverseJoinColumns = @JoinColumn(name = "medical_specializations_id")
-    )
+    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonProperty("specializations")
-    private Set<MedicalSpecialization> specializations = new HashSet<>();
+    private Set<HospitalBedAvailability> hospitalBedAvailabilities = new HashSet<>();
 
-    @JsonProperty("available_beds")
-    private int availableBeds;
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SpecializationAvailability {
+        private Long specializationId;
+        private String specializationName;
+        private int bedsAvailable;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Hospital hospital = (Hospital) o;
+        return Objects.equals(id, hospital.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

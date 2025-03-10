@@ -17,12 +17,21 @@ databaseChangeLog:
             tableName: hospital
             separator: ","
             encoding: UTF-8
+#  - changeSet: # Jointures table
+#      id: 3
+#      author: yoann
+#      changes:
+#        - loadData:
+#            file: db/data/hospital_medical_specializations.csv
+#            tableName: hospital_medical_specializations
+#            separator: ","
+#            encoding: UTF-8
   - changeSet: # Jointures table
-      id: 3
+      id: 4
       author: yoann
       changes:
         - loadData:
-            file: db/data/hospital_medical_specializations.csv
-            tableName: hospital_medical_specializations
+            file: db/data/hospital_bed_availabilities.csv
+            tableName: hospital_bed_availability
             separator: ","
             encoding: UTF-8

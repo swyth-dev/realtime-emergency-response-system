@@ -6,8 +6,8 @@ databaseChangeLog:
       relativeToChangelogFile: true
   - include:
       file: db/changelog/2025/02/24-01-changelog.yaml
-
-
+  - include:
+      file: db/changelog/2025/03/03-01-changelog.yaml
   - include: # In last to update data model before seeding
       file: db.changelog_data.yaml
       relativeToChangelogFile: true

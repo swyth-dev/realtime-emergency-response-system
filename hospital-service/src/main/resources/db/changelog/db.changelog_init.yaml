@@ -36,11 +36,6 @@ databaseChangeLog:
                     nullable: false
                   name: longitude
                   type: DOUBLE
-              - column:
-                  constraints:
-                    nullable: false
-                  name: available_beds
-                  type: INT
             tableName: hospital
   - changeSet:
       id: 1739801721828-2
