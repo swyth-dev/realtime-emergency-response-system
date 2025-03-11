@@ -1,6 +1,5 @@
 package com.swyth.hospitalservice.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +17,6 @@ import java.util.Set;
 public class MedicalSpecialization {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty("id")
     private Long id;
 
     @Column(nullable = false, name = "specialization_name")
