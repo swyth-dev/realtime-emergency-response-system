@@ -1,6 +1,5 @@
 package com.swyth.hospitalservice.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,16 +17,13 @@ import java.util.Set;
 public class MedicalSpecialization {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty("id")
     private Long id;
 
     @Column(nullable = false, name = "specialization_name")
-    @JsonProperty("specialization_name")
-    private String specializationName;
+    private String name;
 
     @Column(nullable = false, name = "specialization_group")
-    @JsonProperty("specialization_group")
-    private String specializationGroup;
+    private String group;
 
     @OneToMany(mappedBy = "specialization", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<HospitalBedAvailability> hospitalBedAvailabilities = new HashSet<>();
@@ -36,8 +32,13 @@ public class MedicalSpecialization {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class HospitalAvailability {
-        private Long hospitalId;
-        private String hospitalName;
+        private Long id;
+        private String name;
+        private String address;
+        private String postCode;
+        private String city;
+        private double latitude;
+        private double longitude;
         private int bedsAvailable;
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class MedicalSpecializationDTO {
     private Long id;
-    private String specializationName;
-    private String specializationGroup;
+    private String name;
+    private String group;
     private List<MedicalSpecialization.HospitalAvailability> hospitals;
 }
