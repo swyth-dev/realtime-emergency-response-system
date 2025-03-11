@@ -46,8 +46,8 @@ public class Hospital {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class SpecializationAvailability {
-        private Long specializationId;
-        private String specializationName;
+        private Long id;
+        private String name;
         private int bedsAvailable;
     }
 
