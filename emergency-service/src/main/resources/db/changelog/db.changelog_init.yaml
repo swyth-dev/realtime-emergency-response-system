@@ -1,12 +1,13 @@
 databaseChangeLog:
   - changeSet:
-      id: 1742208900747-1
+      id: 1742219057524-1
       author: yoann
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - createTable:
             columns:
               - column:
+                  autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -24,13 +25,14 @@ databaseChangeLog:
                   type: BIGINT
             tableName: bed_reservation
   - changeSet:
-      id: 1742208900747-2
+      id: 1742219057524-2
       author: yoann
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - createTable:
             columns:
               - column:
+                  autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -51,34 +53,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
             tableName: patient
   - changeSet:
-      id: 1742208900747-3
-      author: yoann
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - createTable:
-            columns:
-              - column:
-                  constraints:
-                    nullable: false
-                  name: patient_id
-                  type: BIGINT
-              - column:
-                  constraints:
-                    nullable: false
-                  name: bed_reservation_id
-                  type: BIGINT
-            tableName: patient_bed_reservation
-  - changeSet:
-      id: 1742208900747-4
-      author: yoann
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - addUniqueConstraint:
-            columnNames: bed_reservation_id
-            constraintName: uc_patient_bed_reservation_bedreservation
-            tableName: patient_bed_reservation
-  - changeSet:
-      id: 1742208900747-5
+      id: 1742219057524-3
       author: yoann
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -88,26 +63,3 @@ databaseChangeLog:
             constraintName: FK_BEDRESERVATION_ON_PATIENT
             referencedColumnNames: id
             referencedTableName: patient
-  - changeSet:
-      id: 1742208900747-6
-      author: yoann
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - addForeignKeyConstraint:
-            baseColumnNames: bed_reservation_id
-            baseTableName: patient_bed_reservation
-            constraintName: fk_patbedres_on_bed_reservation
-            referencedColumnNames: id
-            referencedTableName: bed_reservation
-  - changeSet:
-      id: 1742208900747-7
-      author: yoann
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - addForeignKeyConstraint:
-            baseColumnNames: patient_id
-            baseTableName: patient_bed_reservation
-            constraintName: fk_patbedres_on_patient
-            referencedColumnNames: id
-            referencedTableName: patient
-

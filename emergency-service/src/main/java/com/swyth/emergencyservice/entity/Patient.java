@@ -1,8 +1,6 @@
 package com.swyth.emergencyservice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +12,7 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Patient {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String firstName;
@@ -25,6 +23,6 @@ public class Patient {
 
     private String email;
 
-    @OneToMany
+    @OneToMany(mappedBy = "patient")
     private ArrayList<BedReservation> bedReservation;
 }
