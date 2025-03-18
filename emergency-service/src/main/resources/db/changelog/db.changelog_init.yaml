@@ -1,0 +1,65 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1742219057524-1
+      author: yoann
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_bedreservation
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: hospital_id
+                  type: BIGINT
+              - column:
+                  name: medical_specialization_id
+                  type: BIGINT
+              - column:
+                  name: patient_id
+                  type: BIGINT
+            tableName: bed_reservation
+  - changeSet:
+      id: 1742219057524-2
+      author: yoann
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_patient
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: first_name
+                  type: VARCHAR(255)
+              - column:
+                  name: last_name
+                  type: VARCHAR(255)
+              - column:
+                  name: phone
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+            tableName: patient
+  - changeSet:
+      id: 1742219057524-3
+      author: yoann
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: patient_id
+            baseTableName: bed_reservation
+            constraintName: FK_BEDRESERVATION_ON_PATIENT
+            referencedColumnNames: id
+            referencedTableName: patient

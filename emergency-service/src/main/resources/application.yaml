@@ -1,0 +1,67 @@
+# Set a default for the environment name.
+# As any Spring Boot configuration property it can be overriden by an OS
+# environment variable, in this case variable 'MEDHEAD_ENVNAME'.
+medhead:
+  envName: emergency_service
+
+# Create the variable for schema name where tables are located
+my:
+  db:
+    schemaname: medhead_${medhead.envName}
+
+spring:
+  application:
+    name: emergency-service
+  cloud:
+    config:
+      discovery:
+        enabled: true
+      enabled: false # Switch to false if you add config server
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: mypassword
+    driverClassName: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        default_schema: ${my.db.schemaname} # Specify schema to Hibernate ORM, Mapping ith JPA Entities in Postgres DB
+    show-sql: true # Show & Debug SQL request
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml # Changelog for only this microservice
+    default-schema: ${my.db.schemaname}
+    enabled: true # TODO: know why I can't find  the yaml changelog on starting application. Mandatory to avoid manual schema creation.
+    liquibase-schema: ${my.db.schemaname}
+  sql:
+    init:
+      mode: always
+      continue-on-error: false
+
+server:
+  port: 8082
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'health refresh'
+logging:
+  level:
+    org:
+      springframework:
+        jdbc:
+          datasource:
+            init: DEBUG
+    liquibase: DEBUG # helps to debug database migrations
+    net:
+      lbruun:
+        springboot:
+          preliquibase: TRACE
+    feign: DEBUG
