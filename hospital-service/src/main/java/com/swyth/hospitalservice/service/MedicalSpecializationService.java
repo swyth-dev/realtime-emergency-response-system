@@ -5,6 +5,7 @@ import com.swyth.hospitalservice.dto.MedicalSpecializationDtoMapper;
 import com.swyth.hospitalservice.entity.HospitalBedAvailability;
 import com.swyth.hospitalservice.entity.MedicalSpecialization;
 import com.swyth.hospitalservice.repository.HospitalBedAvailabilityRepository;
+import com.swyth.hospitalservice.repository.MedicalSpecializationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +16,11 @@ import java.util.stream.Collectors;
 public class MedicalSpecializationService {
 
     private final HospitalBedAvailabilityRepository hospitalBedAvailabilityRepository;
+    private final MedicalSpecializationRepository medicalSpecializationRepository;
 
-    public MedicalSpecializationService(HospitalBedAvailabilityRepository hospitalBedAvailabilityRepository) {
+    public MedicalSpecializationService(HospitalBedAvailabilityRepository hospitalBedAvailabilityRepository, MedicalSpecializationRepository medicalSpecializationRepository) {
         this.hospitalBedAvailabilityRepository = hospitalBedAvailabilityRepository;
+        this.medicalSpecializationRepository = medicalSpecializationRepository;
     }
 
     public List<MedicalSpecializationDTO> findAll() {
@@ -25,5 +28,11 @@ public class MedicalSpecializationService {
                 .collect(Collectors.groupingBy(HospitalBedAvailability::getSpecialization))
                 .keySet();
         return MedicalSpecializationDtoMapper.convertToDTO(specializations);
+    }
+
+    public MedicalSpecializationDTO findById(Long id) {
+        MedicalSpecialization specialization = medicalSpecializationRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Medical specialization with id " + id + " not found"));
+        return MedicalSpecializationDtoMapper.convertToDTO(specialization);
     }
 }
