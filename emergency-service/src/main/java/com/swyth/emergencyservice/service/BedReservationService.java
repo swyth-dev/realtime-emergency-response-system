@@ -4,10 +4,7 @@ import com.swyth.emergencyservice.entity.BedReservation;
 import com.swyth.emergencyservice.feign.MedicalSpecializationRestClient;
 import com.swyth.emergencyservice.model.MedicalSpecialization;
 import com.swyth.emergencyservice.repository.BedReservationRepository;
-import com.swyth.emergencyservice.repository.PatientRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class BedReservationService {
