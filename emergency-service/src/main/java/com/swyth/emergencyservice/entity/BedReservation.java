@@ -1,5 +1,7 @@
 package com.swyth.emergencyservice.entity;
 
+import com.swyth.emergencyservice.model.Hospital;
+import com.swyth.emergencyservice.model.MedicalSpecialization;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +19,13 @@ public class BedReservation {
 
     private Long medicalSpecializationId;
 
-    @ManyToOne
-    private Patient patient;
+    @Transient private Hospital hospital;
+
+    @Transient private MedicalSpecialization specialization;
+
+    // Constructor to initialize all fields
+    public BedReservation(Long hospitalId, Long medicalSpecializationId) {
+        this.hospitalId = hospitalId;
+        this.medicalSpecializationId = medicalSpecializationId;
+    }
 }
