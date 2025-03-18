@@ -64,3 +64,4 @@ logging:
       lbruun:
         springboot:
           preliquibase: TRACE
+    feign: DEBUG
