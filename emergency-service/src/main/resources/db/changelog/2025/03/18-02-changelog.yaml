@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1742296293788-1
+      author: yoann
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: bed_reservation
+            constraintName: fk_bedreservation_on_patient
+  - changeSet:
+      id: 1742296293788-2
+      author: yoann
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropTable:
+            cascadeConstraints: true
+            tableName: patient
+  - changeSet:
+      id: 1742296293788-3
+      author: yoann
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropColumn:
+            columnName: patient_id
+            tableName: bed_reservation
+
