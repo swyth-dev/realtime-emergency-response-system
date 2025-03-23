@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1
+      id: hospital-seeding:1
       author: yoann
       changes:
         - loadData:
