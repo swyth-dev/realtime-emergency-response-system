@@ -25,7 +25,7 @@ public class HospitalDtoMapper {
                         .map(hospitalBedAvailability -> new Hospital.SpecializationAvailability(
                                 hospitalBedAvailability.getSpecialization().getId(),
                                 hospitalBedAvailability.getSpecialization().getName(),
-                                hospitalBedAvailability.getAvailable_beds()
+                                hospitalBedAvailability.getAvailableBeds()
                         ))
                         .sorted(Comparator.comparing(Hospital.SpecializationAvailability::getId, Comparator.nullsLast(Comparator.naturalOrder())))
                         .toList()
