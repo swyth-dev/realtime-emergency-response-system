@@ -1,18 +1,20 @@
 package com.swyth.hospitalservice.controller;
 
 import com.swyth.hospitalservice.dto.MedicalSpecializationDTO;
+import com.swyth.hospitalservice.exception.ResourceNotFoundException;
 import com.swyth.hospitalservice.service.MedicalSpecializationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @Controller
 @RestController
+@RequestMapping("/v1/specializations")
 public class MedicalSpecializationController {
     private final MedicalSpecializationService medicalSpecializationService;
 
@@ -29,15 +31,23 @@ public class MedicalSpecializationController {
     Endpoints en plus :
 
      */
-    @GetMapping("/specializations")
+    @GetMapping("")
     public ResponseEntity<List<MedicalSpecializationDTO>> getMedicalSpecializations() {
-        List<MedicalSpecializationDTO> medicalSpecializations = medicalSpecializationService.findAll();
-        return ResponseEntity.ok(medicalSpecializations);
+        try {
+            List<MedicalSpecializationDTO> medicalSpecializations = medicalSpecializationService.findAll();
+            return ResponseEntity.ok(medicalSpecializations);
+        } catch (ResourceNotFoundException exception) {
+            throw new ResourceNotFoundException(exception.getMessage());
+        }
     }
     
-    @GetMapping("/specializations/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<MedicalSpecializationDTO> getMedicalSpecializationById(@PathVariable Long id) {
-        MedicalSpecializationDTO medicalSpecialization = medicalSpecializationService.findById(id);
-        return ResponseEntity.ok(medicalSpecialization);
+        try {
+            MedicalSpecializationDTO medicalSpecialization = medicalSpecializationService.findById(id);
+            return ResponseEntity.ok(medicalSpecialization);
+        } catch (ResourceNotFoundException exception) {
+            throw new ResourceNotFoundException(exception.getMessage());
+        }
     }
 }

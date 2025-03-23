@@ -25,6 +25,6 @@ public class HospitalBedAvailability {
     @JoinColumn(name = "medical_specialization_id")
     private MedicalSpecialization specialization;
 
-    // Additional fields
-    private int available_beds;
+    // Additional field
+    private int availableBeds;
 }

@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/v1/hospitals")
 public class HospitalController {
     private final HospitalService hospitalService;
 
@@ -21,7 +21,7 @@ public class HospitalController {
         this.hospitalService = hospitalService;
     }
 
-    @GetMapping("/hospitals")
+    @GetMapping("")
     public ResponseEntity<List<HospitalDTO>> getHospitals() {
         List<HospitalDTO> hospitals = hospitalService.findAll();
         return ResponseEntity.ok(hospitals);
@@ -36,7 +36,7 @@ public class HospitalController {
 *    * @param locationDTO contains latitude, longitude, and specialization ID.
 *    * @return nearest hospital details.
      */
-    @PostMapping("/hospitals/nearest")
+    @PostMapping("/nearest")
     public ResponseEntity<NearestHospitalDTO> getNearestHospitals(@Valid @RequestBody EmergencyLocationDTO emergencyLocationDTO) {
         NearestHospitalDTO nearestHospital = hospitalService.findNearestHospital(
                 emergencyLocationDTO.getMedicalSpecializationId(),

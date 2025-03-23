@@ -26,7 +26,7 @@ public class MedicalSpecializationDtoMapper {
                                 hospitalBedAvailability.getHospital().getCity(),
                                 hospitalBedAvailability.getHospital().getLatitude(),
                                 hospitalBedAvailability.getHospital().getLongitude(),
-                                hospitalBedAvailability.getAvailable_beds()
+                                hospitalBedAvailability.getAvailableBeds()
                         ))
                         .sorted(Comparator.comparing(MedicalSpecialization.HospitalAvailability::getId, Comparator.nullsLast(Comparator.naturalOrder())))
                         .toList()
