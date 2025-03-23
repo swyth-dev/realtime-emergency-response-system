@@ -6,6 +6,7 @@ import com.swyth.hospitalservice.dto.NearestHospitalDTO;
 import com.swyth.hospitalservice.dto.NearestHospitalDtoMapper;
 import com.swyth.hospitalservice.entity.Hospital;
 import com.swyth.hospitalservice.entity.HospitalBedAvailability;
+import com.swyth.hospitalservice.exception.ResourceNotFoundException;
 import com.swyth.hospitalservice.repository.HospitalBedAvailabilityRepository;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,10 @@ public class HospitalService {
                 .collect(Collectors.groupingBy(HospitalBedAvailability::getHospital))
                 .keySet();
 
+        if (hospitals.isEmpty()) {
+            throw new ResourceNotFoundException("No hospitals found");
+        }
+
         return HospitalDtoMapper.convertToDTO(hospitals);
     }
 
@@ -37,7 +42,7 @@ public class HospitalService {
                 .toList();
 
         if (availabilities.isEmpty()) {
-            return null; // No hospital found with the requested specialization.
+            throw new ResourceNotFoundException("No hospitals availability for this specialization " + medicalSpecializationId); // No hospital found with the requested specialization.
         }
 
         // Simple algorithm to calculate the nearest hospital based on latitude and longitude, based on 2D Euclidean Calculation
@@ -58,7 +63,7 @@ public class HospitalService {
         }
 
         if (nearestHospital == null) {
-            return null;
+            throw new ResourceNotFoundException("No near hospital found");
         }
 
         // Convert the nearest hospital to the DTO
