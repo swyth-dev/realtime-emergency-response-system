@@ -8,8 +8,10 @@ import com.swyth.hospitalservice.entity.Hospital;
 import com.swyth.hospitalservice.entity.HospitalBedAvailability;
 import com.swyth.hospitalservice.exception.ResourceNotFoundException;
 import com.swyth.hospitalservice.repository.HospitalBedAvailabilityRepository;
+import com.swyth.hospitalservice.repository.HospitalRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -17,15 +19,15 @@ import java.util.stream.Collectors;
 @Service
 public class HospitalService {
     private final HospitalBedAvailabilityRepository hospitalBedAvailabilityRepository;
+    private final HospitalRepository hospitalRepository;
 
-    public HospitalService(HospitalBedAvailabilityRepository hospitalBedAvailabilityRepository) {
+    public HospitalService(HospitalBedAvailabilityRepository hospitalBedAvailabilityRepository, HospitalRepository hospitalRepository) {
         this.hospitalBedAvailabilityRepository = hospitalBedAvailabilityRepository;
+        this.hospitalRepository = hospitalRepository;
     }
 
     public List<HospitalDTO> findAll() {
-        Set<Hospital> hospitals = hospitalBedAvailabilityRepository.findAll().stream()
-                .collect(Collectors.groupingBy(HospitalBedAvailability::getHospital))
-                .keySet();
+        Set<Hospital> hospitals = new HashSet<>(hospitalRepository.findAll());
 
         if (hospitals.isEmpty()) {
             throw new ResourceNotFoundException("No hospitals found");
