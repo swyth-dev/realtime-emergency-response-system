@@ -1,0 +1,83 @@
+volumes:
+  db_data:
+    driver: local
+  kafka_data:
+    driver: local
+
+
+networks:
+  kafka-net:
+    driver: bridge
+  microservice-network: # Define a custom network for microservices. Not production realistic.
+    driver: bridge
+
+services:
+  # PostgreSQL Database Service
+  # For Development Purpose, we provide a shared database across services. In production mode, each microservice has its own persistence service.
+  postgres-db:
+    image: postgres:latest
+    container_name: shared-postgresql-db
+    ports:
+      - "5432:5432" # Exposes the PostgreSQL port to the host
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mypassword #TODO: implement secret management
+      POSTGRES_DB: medhead_hospital_service
+    volumes:
+      - db_data:/var/lib/postgresql/data # Persists database data locally to avoid data loss
+    networks:
+      - microservice-network # Uses the shared custom network
+
+## TODO: add or remove this part
+#  # Hospital Service (Spring Cloud microservice)
+#  hospital-service:
+#    build:
+#      context: hospital-service/.
+#      dockerfile: Dockerfile
+#    depends_on:
+#      - postgres-db
+#    ports:
+#      - "8081:8081" # Exposes the application port
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/medhead_hospital_service
+#      SPRING_DATASOURCE_USERNAME: postgres
+#      SPRING_DATASOURCE_PASSWORD: mypassword
+#    networks:
+#      - microservice-network # Uses the same custom network as `db`
+
+  # Kafka broker and controller configuration for the Kafka cluster
+  # KRaft consensus (no Zookeeper) : https://developer.confluent.io/learn/kraft/
+  kafka:
+    image: bitnami/kafka
+    hostname: kafka
+    container_name: kafka
+    restart: on-failure
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+    environment:
+      - KAFKA_CFG_NODE_ID=0
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+    networks:
+      - kafka-net
+
+  # Kafka UI service configuration for monitoring and managing the Kafka cluster
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-cluster-ui
+    ports:
+      - "8080:8080"
+    environment:
+      DYNAMIC_CONFIG_ENABLED: true
+      KAFKA_CLUSTER_O_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "kafka:9092"
+    depends_on:
+      - kafka
+    networks:
+      - kafka-net
