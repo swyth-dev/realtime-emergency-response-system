@@ -1,47 +1,49 @@
 package com.swyth.emergencyservice.service;
 
+import com.swyth.emergencyservice.dto.BedReservationResponseDTO;
+import com.swyth.emergencyservice.dto.BedReservationResponseDtoMapper;
 import com.swyth.emergencyservice.entity.BedReservation;
-import com.swyth.emergencyservice.feign.MedicalSpecializationRestClient;
-import com.swyth.emergencyservice.model.MedicalSpecialization;
+import com.swyth.emergencyservice.exception.BedUnavailableException;
+import com.swyth.emergencyservice.feign.HospitalBedAvailabilityRestClient;
 import com.swyth.emergencyservice.repository.BedReservationRepository;
+import feign.FeignException;
+import org.springframework.cloud.stream.function.StreamBridge;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BedReservationService {
     private final BedReservationRepository bedReservationRepository;
-    private final MedicalSpecializationRestClient medicalSpecializationRestClient;
+    private final HospitalBedAvailabilityRestClient hospitalBedAvailabilityRestClient;
+    private final StreamBridge streamBridge;
 
-    public BedReservationService(BedReservationRepository bedReservationRepository, MedicalSpecializationRestClient medicalSpecializationRestClient) {
+    public BedReservationService(BedReservationRepository bedReservationRepository, HospitalBedAvailabilityRestClient hospitalBedAvailabilityRestClient, StreamBridge streamBridge) {
         this.bedReservationRepository = bedReservationRepository;
-        this.medicalSpecializationRestClient = medicalSpecializationRestClient;
+        this.hospitalBedAvailabilityRestClient = hospitalBedAvailabilityRestClient;
+        this.streamBridge = streamBridge;
     }
 
-    public String createBedReservation(Long hospitalId, Long medicalSpecializationId) {
+    public ResponseEntity<BedReservationResponseDTO> createBedReservation(Long hospitalId, Long medicalSpecializationId) {
 
-        // Step 1: Check if Medical Specialization exists
-        MedicalSpecialization specialization = medicalSpecializationRestClient.getMedicalSpecializationById(medicalSpecializationId);
-        if (specialization == null) {
-            return "Specialization not found";
+        try {
+            // Check bed availability via external API
+            Boolean isBedAvailable = hospitalBedAvailabilityRestClient.checkHospitalBedAvailability(medicalSpecializationId, hospitalId);
+
+            if (!isBedAvailable) {
+                throw new BedUnavailableException("No bed is available in the hospital ID " + hospitalId + " for the given specialization ID " + medicalSpecializationId + ".");
+            }
+
+            // Proceed to create a bed reservation
+            BedReservation reservation = new BedReservation(hospitalId, medicalSpecializationId);
+
+            // Save the reservation & Send the message through a Data Binder for Event-Driven Architecture
+            BedReservation bedReservationBooked = bedReservationRepository.save(reservation);
+            streamBridge.send("bed-reservation-booked", BedReservationResponseDtoMapper.convertToDTO(bedReservationBooked));
+
+            return ResponseEntity.ok(BedReservationResponseDtoMapper.convertToDTO(reservation));
+        } catch (FeignException.NotFound exception) {
+            // Handle 404 Not Found
+            throw new BedUnavailableException("No bed is available in the hospital ID " + hospitalId + " for the given specialization ID " + medicalSpecializationId + ".");
         }
-
-        // Step 2: Check if the Hospital ID is linked to the Specialization
-        boolean isHospitalLinked = specialization.getHospitals().stream()
-                .anyMatch(hospitalAvailability -> hospitalAvailability.getId().equals(hospitalId));
-        if (!isHospitalLinked) {
-            return "Hospital ID is not linked to the specialization";
-        }
-
-        // TODO: Check if Bed is available for this hospital and specialization
-        // TODO : Migrer cette logique métier: c le serruce hospital qui est responsbale de cette logique.
-
-
-        // If all checks pass, proceed to create a bed reservation (logic to be added)
-        // Example placeholder for bed reservation logic
-        // Proceed to save the reservation
-        BedReservation reservation = new BedReservation(hospitalId, medicalSpecializationId);
-
-        bedReservationRepository.save(reservation);
-
-        return reservation.toString();
     }
 }
