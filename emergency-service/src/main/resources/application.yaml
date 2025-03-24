@@ -36,6 +36,20 @@ spring:
     init:
       mode: always
       continue-on-error: false
+  kafka:
+    producer:
+      retries: 5               # Retries on transient errors
+      bootstrap-servers: 'kafka:9092'
+      acks: all
+      retry.backoff.ms: 300    # Wait before retrying
+      reconnect.backoff.ms: 50 # Delay before reconnecting to Kafka
+      linger.ms: 5             # Reduce latency impact
+    retry:
+      topic:
+        backoff:
+          max-delay: 2
+          delay: 1
+
 
 server:
   port: 8082
