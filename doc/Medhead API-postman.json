@@ -1,0 +1,208 @@
+{
+  "info": {
+    "name": "Medhead API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "bruno",
+      "event": []
+    },
+    {
+      "name": "emergency-service",
+      "item": [
+        {
+          "name": "Book a bed reservation",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8082/v1/bed-reservations",
+              "protocol": "http",
+              "host": [
+                "localhost:8082"
+              ],
+              "path": [
+                "v1",
+                "bed-reservations"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"medicalSpecializationId\": \"1\",\n  \"hospitalId\": \"2\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "hospital-service",
+      "item": [
+        {
+          "name": "Check bed availability by hospital & specialization",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8081/v1/bed-availabilities/check?medicalSpecializationId=1&hospitalId=2",
+              "protocol": "http",
+              "host": [
+                "localhost:8081"
+              ],
+              "path": [
+                "v1",
+                "bed-availabilities",
+                "check"
+              ],
+              "query": [
+                {
+                  "key": "medicalSpecializationId",
+                  "value": "1"
+                },
+                {
+                  "key": "hospitalId",
+                  "value": "2"
+                }
+              ],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Find the nearest Hospital by specialization",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8081/v1/hospitals/nearest",
+              "protocol": "http",
+              "host": [
+                "localhost:8081"
+              ],
+              "path": [
+                "v1",
+                "hospitals",
+                "nearest"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"medicalSpecializationId\": \"1\",\n  \"latitude\": \"38.055176905334\",\n  \"longitude\": \"38.055176905334\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get a medical specialization by ID",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8081/v1/specializations/:id",
+              "protocol": "http",
+              "host": [
+                "localhost:8081"
+              ],
+              "path": [
+                "v1",
+                "specializations",
+                ":id"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "5"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get all Hospitals",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8081/v1/hospitals",
+              "protocol": "http",
+              "host": [
+                "localhost:8081"
+              ],
+              "path": [
+                "v1",
+                "hospitals"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "Get all medical specializations",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "noauth"
+            },
+            "description": "",
+            "url": {
+              "raw": "http://localhost:8081/v1/specializations",
+              "protocol": "http",
+              "host": [
+                "localhost:8081"
+              ],
+              "path": [
+                "v1",
+                "specializations"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": []
+}

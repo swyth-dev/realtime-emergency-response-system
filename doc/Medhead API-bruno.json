@@ -1,0 +1,200 @@
+{
+  "name": "Medhead API",
+  "version": "1",
+  "items": [
+    {
+      "type": "folder",
+      "name": "emergency-service",
+      "items": [
+        {
+          "type": "http",
+          "name": "Book a bed reservation",
+          "seq": 1,
+          "request": {
+            "url": "http://localhost:8082/v1/bed-reservations",
+            "method": "POST",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"medicalSpecializationId\": \"1\",\n  \"hospitalId\": \"2\"\n}",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "hospital-service",
+      "items": [
+        {
+          "type": "http",
+          "name": "Check bed availability by hospital & specialization",
+          "seq": 5,
+          "request": {
+            "url": "http://localhost:8081/v1/bed-availabilities/check?medicalSpecializationId=1&hospitalId=2",
+            "method": "POST",
+            "headers": [],
+            "params": [
+              {
+                "name": "medicalSpecializationId",
+                "value": "1",
+                "type": "query",
+                "enabled": true
+              },
+              {
+                "name": "hospitalId",
+                "value": "2",
+                "type": "query",
+                "enabled": true
+              }
+            ],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Find the nearest Hospital by specialization",
+          "seq": 4,
+          "request": {
+            "url": "http://localhost:8081/v1/hospitals/nearest",
+            "method": "POST",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"medicalSpecializationId\": \"1\",\n  \"latitude\": \"38.055176905334\",\n  \"longitude\": \"38.055176905334\"\n}",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Get a medical specialization by ID",
+          "seq": 1,
+          "request": {
+            "url": "http://localhost:8081/v1/specializations/:id",
+            "method": "GET",
+            "headers": [],
+            "params": [
+              {
+                "name": "id",
+                "value": "5",
+                "type": "path",
+                "enabled": true
+              }
+            ],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Get all Hospitals",
+          "seq": 2,
+          "request": {
+            "url": "http://localhost:8081/v1/hospitals",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Get all medical specializations",
+          "seq": 3,
+          "request": {
+            "url": "http://localhost:8081/v1/specializations",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "environments": [],
+  "brunoConfig": {
+    "version": "1",
+    "name": "Medhead API",
+    "type": "collection",
+    "ignore": [
+      "node_modules",
+      ".git"
+    ]
+  }
+}
