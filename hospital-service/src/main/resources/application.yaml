@@ -13,6 +13,15 @@ spring:
   application:
     name: hospital-service
   cloud:
+    function:
+      definition: decrementBedAvailability
+    stream:
+      bindings:
+        decrementBedAvailability-in-0:
+          destination: bed-reservation-booked
+          group: bed-reservation-consumer-group
+          content-type: application/json
+      default-binder: kafka
     config:
       discovery:
         enabled: true
@@ -36,6 +45,10 @@ spring:
     init:
       mode: always
       continue-on-error: false
+  kafka:
+    consumer:
+      bootstrap-servers: kafka:9092
+
 
 server:
   port: 8081
