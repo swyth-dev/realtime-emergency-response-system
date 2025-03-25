@@ -13,6 +13,12 @@ spring:
   application:
     name: emergency-service
   cloud:
+    stream:
+      default-binder: kafka
+      bindings:
+        bed-reservation-booked-out:
+          destination: bed-reservation-booked
+          content-type: application/json
     config:
       discovery:
         enabled: true
