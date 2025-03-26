@@ -1,0 +1,14 @@
+<div>
+  <h2>Select Medical MedicalSpecialization</h2>
+  <mat-form-field>
+    <mat-label>MedicalSpecialization</mat-label>
+    <mat-select [formControl]="specializationControl">
+      <mat-option *ngFor="let specialization of specializations" [value]="specialization">
+        {{ specialization.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="onSelectSpecialization()">
+    Confirm
+  </button>
+</div>
