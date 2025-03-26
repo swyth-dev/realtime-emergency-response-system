@@ -4,13 +4,22 @@ import { HospitalService } from '../../services/hospital.service';
 import {NearestHospital} from '../../interfaces/nearest-hospital';
 import {BedReservationPayload} from '../../interfaces/bed-reservation-payload';
 import {EmergencyService} from '../../services/emergency.service';
-import {MatCard, MatCardActions, MatCardContent, MatCardTitle} from '@angular/material/card';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardHeader,
+  MatCardSubtitle,
+  MatCardTitle
+} from '@angular/material/card';
 import {MatButton} from '@angular/material/button';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {EmergencyLocation} from '../../interfaces/emergency-location';
 import {NgIf} from '@angular/common';
+import {ErrorHandlerService} from '../../services/error-handler.service';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 declare var google: any; // Declare Google Maps namespace
 
@@ -29,33 +38,49 @@ declare var google: any; // Declare Google Maps namespace
     MatProgressSpinner,
     MatCardActions,
     NgIf,
-    MatInput
+    MatInput,
+    MatCardHeader,
+    MatCardSubtitle,
+    MatSnackBarModule
   ],
   standalone: true
 })
 export class NearestHospitalDetailsComponent implements OnInit {
-  specializationId: number = 0;
+  // Only to store the requested medical specialization name
   specializationName: string | null = null;
-  latitude: number | null = null; // Latitude from selected location
-  longitude: number | null = null; // Longitude from selected location
-  userAddress: string = ''; // Store selected user address
+
+  // Init emergency location which will be use to request the nearest hospital
+  emergencyLocation: EmergencyLocation = {
+      medicalSpecializationId: null,
+      latitude: null,
+      longitude: null
+    };
+
   nearestHospital: NearestHospital | null = null; // Store hospital details
+
+  userAddress: string = ''; // Store selected user address
+
   isLoading: boolean = false; // For loading spinner
+
+  isReservationSuccessful: boolean = false; // Track success state
+  reservationRecap: NearestHospital | null = null; // Store hospital details for recap
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private hospitalService: HospitalService,
-    private emergencyService: EmergencyService
+    private emergencyService: EmergencyService,
+    private errorHandler: ErrorHandlerService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
     // Retrieve specialization ID and name from query params
     this.route.queryParams.subscribe((params) => {
-      this.specializationId = params['id'] || null;
+      this.emergencyLocation.medicalSpecializationId = params['id'] || null
       this.specializationName = params['name'] || null;
 
-      if (!this.specializationId) {
+      if (!this.emergencyLocation.medicalSpecializationId) {
         console.error('No specialization ID provided!');
         this.router.navigate(['/']);
       }
@@ -97,10 +122,10 @@ export class NearestHospitalDetailsComponent implements OnInit {
 
       if (place.geometry) {
         this.userAddress = place.formatted_address;
-        this.latitude = place.geometry.location.lat();
-        this.longitude = place.geometry.location.lng();
+        this.emergencyLocation.latitude = place.geometry.location.lat();
+        this.emergencyLocation.longitude = place.geometry.location.lng();
         console.log('Address:', this.userAddress);
-        console.log('Coordinates:', this.latitude, this.longitude);
+        console.log('Coordinates:', this.emergencyLocation.latitude, this.emergencyLocation.longitude);
       } else {
         console.error('No geometry found for the address!');
       }
@@ -109,30 +134,37 @@ export class NearestHospitalDetailsComponent implements OnInit {
 
   // Search for the nearest hospital
   onFindNearestHospital(): void {
-    if (!this.latitude || !this.longitude || !this.specializationId) {
-      alert('Please fill in a valid address with a specialization!');
+    if (!this.emergencyLocation.latitude || !this.emergencyLocation.longitude || !this.emergencyLocation.medicalSpecializationId) {
+      this.snackBar.open("Please fill in a valid address with a specialization!", 'Close', {
+        duration: 5000,
+        panelClass: 'error-snackbar',
+      });
       return;
     }
 
     this.isLoading = true; // Show loading spinner
 
-    const emergencyLocation: EmergencyLocation = {
-      medicalSpecializationId: this.specializationId,
-      latitude: this.latitude,
-      longitude: this.longitude
-    };
-
     this.hospitalService
-      .getNearestHospital(emergencyLocation)
+      .getNearestHospital(this.emergencyLocation)
       .subscribe({
         next: (hospital: NearestHospital) => {
           // Handle the success case
           this.nearestHospital = hospital;
           console.log('Nearest Hospital:', this.nearestHospital);
         },
-        error: (error) => {
-          // Handle the error case
-          console.error('Error fetching nearest hospital:', error);
+        error: (err) => {
+          this.isLoading = false;
+
+          // Use ErrorHandlerService to process the error
+          const errorMessage = this.errorHandler.processHttpError(err);
+
+          // Log the error if needed and notify the user
+          console.error('Error fetching nearest hospital:', err);
+
+          this.snackBar.open(errorMessage, 'Close', {
+            duration: 5000,
+            panelClass: 'error-snackbar',
+          });
         },
         complete: () => {
           // Final cleanup
@@ -149,22 +181,26 @@ export class NearestHospitalDetailsComponent implements OnInit {
     }
 
     const reservationPayload: BedReservationPayload = {
-      medicalSpecializationId: this.specializationId,
+      medicalSpecializationId: this.emergencyLocation.medicalSpecializationId,
       hospitalId: this.nearestHospital.id
-
     };
 
     this.emergencyService
       .reserveBed(reservationPayload)
       .subscribe({
         next: () => {
-          alert(
-            `Successfully reserved a bed at ${this.nearestHospital?.name}!`
-          );
+          this.isLoading = false;
+          this.isReservationSuccessful = true; // Mark success
+          this.reservationRecap = this.nearestHospital; // Store recap details
         },
         error: (error) => {
           console.error('Error reserving a bed:', error);
         },
       });
+  }
+
+  // Navigate back to the home page
+  goToHome(): void {
+    this.router.navigate(['/']);
   }
 }
