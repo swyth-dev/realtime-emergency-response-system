@@ -6,14 +6,12 @@ import com.swyth.hospitalservice.service.HospitalBedAvailabilityService;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @ResponseBody
 @RequestMapping("/v1/bed-availabilities")
+@CrossOrigin(origins = "*", allowedHeaders = "*") //TODO: don't let it like that in Production env
 public class HospitalBedAvailabilityController {
     private final HospitalBedAvailabilityService hospitalBedAvailabilityService;
 

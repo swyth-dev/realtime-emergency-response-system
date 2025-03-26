@@ -14,6 +14,7 @@ import java.util.List;
 @Controller
 @RestController
 @RequestMapping("/v1/hospitals")
+@CrossOrigin(origins = "*", allowedHeaders = "*") //TODO: don't let it like that in Production env
 public class HospitalController {
     private final HospitalService hospitalService;
 
