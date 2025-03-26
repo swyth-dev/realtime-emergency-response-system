@@ -1,0 +1,25 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.hospital-info {
+  margin-top: 20px;
+}
