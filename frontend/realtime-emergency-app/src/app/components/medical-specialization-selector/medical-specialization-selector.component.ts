@@ -1,16 +1,36 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
+import {Component, inject, OnInit} from '@angular/core';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {Router} from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {MatSelectModule} from '@angular/material/select';
+import {MatButtonModule} from '@angular/material/button';
 import {HospitalService} from '../../services/hospital.service';
 import {MedicalSpecialization} from '../../interfaces/medical-specialization';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardHeader,
+  MatCardSubtitle,
+  MatCardTitle
+} from '@angular/material/card';
 
 @Component({
   selector: 'app-specialization-selector',
-  imports: [CommonModule, ReactiveFormsModule, MatSelectModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatCardActions,
+    MatCardContent,
+    MatCardTitle,
+    MatCard,
+    MatCardHeader,
+    FormsModule
+  ],
   templateUrl: './medical-specialization-selector.component.html',
+  styleUrls: ['./medical-specialization-selector.component.css'],
   standalone: true
 })
 export class MedicalSpecializationSelectorComponent implements OnInit {

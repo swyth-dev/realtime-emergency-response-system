@@ -1,7 +1,7 @@
 import {Hospital} from './hospital';
 
 export interface MedicalSpecialization {
-  id: number;
+  id: number | null;
   name: string;
   group: string;
   hospitals: Hospital[];

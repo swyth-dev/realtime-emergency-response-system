@@ -1,9 +1,9 @@
 export interface NearestHospital {
-  id: number;
-  name: string;
-  address: string;
-  postCode: string;
-  city: string;
-  latitude: number;
-  longitude: number;
+  id: number | null;
+  name: string | null;
+  address: string | null;
+  postCode: string | null;
+  city: string | null;
+  latitude: number | null;
+  longitude: number | null;
 }
