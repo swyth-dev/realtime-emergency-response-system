@@ -1,8 +1,24 @@
+
+
 <div class="container">
+  <!-- Navigation Button to go back home -->
+  <div class="header">
+    <button mat-stroked-button color="primary" (click)="goToHome()">
+      Go to Home
+    </button>
+  </div>
+  <br>
+
   <mat-card>
-    <mat-card-title>
-      Find the Nearest Hospital for Specialization: {{ specializationName }}
-    </mat-card-title>
+    <mat-card-header>
+      <mat-card-title>
+        Find the Nearest Hospital for Specialization:
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{ specializationName }}
+      </mat-card-subtitle>
+    </mat-card-header>
+
     <mat-card-content>
       <form (ngSubmit)="onFindNearestHospital()">
         <!-- Autocomplete Input -->
@@ -35,18 +51,52 @@
   </div>
 
   <!-- Hospital Details Section -->
-  <mat-card *ngIf="nearestHospital" class="hospital-info">
-    <mat-card-title>Nearest Hospital Details</mat-card-title>
+  <mat-card *ngIf="!isReservationSuccessful && nearestHospital; else successView" class="hospital-info">
+    <mat-card-header>
+      <mat-card-title>Nearest Hospital Details</mat-card-title>
+    </mat-card-header>
     <mat-card-content>
-      <p><strong>Name:</strong> {{ nearestHospital?.name }}</p>
-      <p><strong>Address:</strong> {{ nearestHospital?.address }}</p>
-      <p><strong>City:</strong> {{ nearestHospital?.city }}</p>
-      <p><strong>PostCode:</strong> {{ nearestHospital?.postCode }}</p>
+      <p><strong>Name:</strong> {{ nearestHospital.name }}</p>
+      <p><strong>Address:</strong> {{ nearestHospital.address }}</p>
+      <p><strong>City:</strong> {{ nearestHospital.city }}</p>
+      <p><strong>PostCode:</strong> {{ nearestHospital.postCode }}</p>
+      <p><strong>Specialization :</strong> {{ specializationName }}</p>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="accent" (click)="onReserveBed()">
-        Reserve a Bed
+    <div class="actions">
+      <mat-card-actions>
+        <button mat-raised-button
+                color="accent"
+                (click)="onReserveBed()"
+                [disabled]="isLoading">
+          Reserve a Bed
+        </button>
+      </mat-card-actions>
+    </div>
+
+  </mat-card>
+
+  <div *ngIf="isLoading" class="spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+
+<!-- Success view template -->
+<ng-template #successView >
+  <mat-card *ngIf="isReservationSuccessful && reservationRecap" class="recap-info">
+    <mat-card-header>
+      <mat-card-title>Reservation Successful!</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Your bed reservation at <strong>{{ reservationRecap?.name }}</strong> has been confirmed!</p>
+      <p><strong>Address:</strong> {{ reservationRecap?.address }}</p>
+      <p><strong>City:</strong> {{ reservationRecap?.city }}</p>
+      <p><strong>PostCode:</strong> {{ reservationRecap?.postCode }}</p>
+      <p><strong>Specialization :</strong> {{ specializationName }}</p>
+    </mat-card-content>
+    <mat-card-actions class="actions">
+      <button mat-stroked-button color="primary" (click)="goToHome()">
+        Go to Home
       </button>
     </mat-card-actions>
   </mat-card>
-</div>
+</ng-template>

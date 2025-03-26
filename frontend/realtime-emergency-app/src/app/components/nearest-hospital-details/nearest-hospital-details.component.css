@@ -1,7 +1,6 @@
 .container {
   max-width: 600px;
-  margin: 0 auto;
-  margin-top: 20px;
+  margin: 20px auto 0;
 }
 
 .full-width {
@@ -21,5 +20,10 @@
 }
 
 .hospital-info {
-  margin-top: 20px;
+  margin: 20px auto 0;
+}
+
+
+.recap-info {
+  margin: 20px auto 0;
 }

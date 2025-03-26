@@ -1,5 +1,5 @@
 export interface EmergencyLocation {
-  medicalSpecializationId: number; // ID of the specialization
-  latitude: number; // Current latitude coordinates
-  longitude: number; // Current longitude coordinates
+  medicalSpecializationId: number | null; // ID of the specialization
+  latitude: number | null; // Current latitude coordinates
+  longitude: number | null; // Current longitude coordinates
 }

@@ -1,4 +1,4 @@
 export interface BedReservationPayload {
-  medicalSpecializationId: number;
-  hospitalId: number;
+  medicalSpecializationId: number | null;
+  hospitalId: number | null;
 }
