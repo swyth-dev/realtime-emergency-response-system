@@ -9,9 +9,13 @@ public class BedReservationResponseDtoMapper {
 
     public static BedReservationResponseDTO convertToDTO(BedReservation reservation) {
         return new BedReservationResponseDTO(
-            reservation.getId(),
-            reservation.getHospitalId(),
-            reservation.getMedicalSpecializationId()
+                reservation.getId(),
+                reservation.getHospitalId(),
+                reservation.getMedicalSpecializationId(),
+                reservation.getReservationFirstName(),
+                reservation.getReservationLastName(),
+                reservation.getReservationEmail(),
+                reservation.getReservationPhoneNumber()
         );
     }
 

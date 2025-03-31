@@ -1,4 +1,8 @@
 export interface BedReservationPayload {
-  medicalSpecializationId: number | null;
-  hospitalId: number | null;
+  medicalSpecializationId: string;
+  hospitalId: string;
+  reservationFirstName: string | null | undefined;
+  reservationLastName: string | null | undefined;
+  reservationEmail: string | null | undefined;
+  reservationPhoneNumber: string | null | undefined
 }

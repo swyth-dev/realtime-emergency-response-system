@@ -4,15 +4,20 @@
       <mat-card-title>
         Select Medical Specialization
       </mat-card-title>
+      <mat-card-subtitle>
+        Select your appropriate medical specialization
+      </mat-card-subtitle>
     </mat-card-header>
+
+    <br>
 
     <mat-card-content>
       <form (ngSubmit)="onSelectSpecialization()">
         <!-- Specialization Dropdown -->
         <mat-form-field class="full-width">
           <mat-label>Medical Specialization</mat-label>
-          <mat-select [formControl]="specializationControl" required>
-            <mat-option
+          <mat-select [formControl]="specializationControl" required class="full-width">
+            <mat-option class="full-width"
               *ngFor="let specialization of specializations"
               [value]="specialization">
               {{ specialization.name }}

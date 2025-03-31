@@ -173,34 +173,22 @@ export class NearestHospitalDetailsComponent implements OnInit {
       });
   }
 
-  // Reserve a bed at the nearest hospital
-  onReserveBed(): void {
+  // Navigate back to the home page
+  goToHome(): void {
+    this.router.navigate(['/']);
+  }
+
+  onContinueReservation() {
     if (!this.nearestHospital) {
       console.error('No hospital data available for reservation.');
       return;
     }
 
-    const reservationPayload: BedReservationPayload = {
-      medicalSpecializationId: this.emergencyLocation.medicalSpecializationId,
-      hospitalId: this.nearestHospital.id
-    };
-
-    this.emergencyService
-      .reserveBed(reservationPayload)
-      .subscribe({
-        next: () => {
-          this.isLoading = false;
-          this.isReservationSuccessful = true; // Mark success
-          this.reservationRecap = this.nearestHospital; // Store recap details
-        },
-        error: (error) => {
-          console.error('Error reserving a bed:', error);
-        },
-      });
-  }
-
-  // Navigate back to the home page
-  goToHome(): void {
-    this.router.navigate(['/']);
+    this.router.navigate(['/information'], {
+      queryParams: {
+        specializationId: this.emergencyLocation.medicalSpecializationId,
+        hospitalId: this.nearestHospital?.id,
+      },
+    });
   }
 }

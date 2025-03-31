@@ -6,5 +6,11 @@ export interface Hospital {
   city: string;
   latitude: number;
   longitude: number;
+  specializations: MedicalSpecializationAvailability[];
+}
+
+interface MedicalSpecializationAvailability {
+  id: number ;
+  name: string;
   bedsAvailable: number;
 }
