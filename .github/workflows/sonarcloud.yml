@@ -7,6 +7,10 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+env:
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 permissions:
   pull-requests: read # allows SonarCloud to decorate PRs with analysis results
 
@@ -56,9 +60,13 @@ jobs:
 
       # Step 5: Build and analyze each service
       - name: Build and analyze ${{ matrix.service }}
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -f ../../backend/${{ matrix.service }}/pom.xml -B  verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -D sonar.projectKey=swyth-dev_${{ matrix.service }}
+        run: mvn -f ../../backend/${{ matrix.service }}/pom.xml \
+              -B  verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+              -D sonar.projectKey=swyth-dev_${{ matrix.service }} \
+              -D sonar.pullrequest.key=${{ github.event.number }} \
+              -D sonar.pullrequest.branch=${{ github.head_ref }} \
+              -D sonar.pullrequest.base=${{ github.base_ref }} \
+              -D sonar.pullrequest.github.repository=${{ github.repository }}
 
 
     # Frontend Angular App Scan
@@ -92,8 +100,6 @@ jobs:
           run: npm install -g sonar-scanner
 
         - name: Analyze with SonarQube
-          env:
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           run: |
             cd ../../frontend/realtime-emergency-app
             sonar-scanner \
@@ -104,4 +110,8 @@ jobs:
             -D sonar.tests=src \
             -D sonar.test.inclusions=**/*.spec.ts \
             -D sonar.typescript.lcov.reportPaths=coverage/lcov.info \
-            -D sonar.sourceEncoding=UTF-8
+            -D sonar.sourceEncoding=UTF-8 \
+            -D sonar.pullrequest.key=${{ github.event.number }} \
+            -D sonar.pullrequest.branch=${{ github.head_ref }} \
+            -D sonar.pullrequest.base=${{ github.base_ref }} \
+            -D sonar.pullrequest.github.repository=${{ github.repository }}
