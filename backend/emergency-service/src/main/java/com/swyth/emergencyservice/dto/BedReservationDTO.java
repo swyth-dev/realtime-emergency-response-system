@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
+// TODO: refactor to bed reservation Request/Payload
 @Data
 public class BedReservationDTO {
 

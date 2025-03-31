@@ -23,6 +23,11 @@ public class BedReservationService {
         this.streamBridge = streamBridge;
     }
 
+    public BedReservationResponseDTO findById(Long id) {
+        BedReservation bedReservation = bedReservationRepository.findById(id).orElseThrow(() -> new IllegalStateException("No entry found for the given ID."));
+        return BedReservationResponseDtoMapper.convertToDTO(bedReservation);
+    }
+
     public ResponseEntity<BedReservationResponseDTO> createBedReservation(Long hospitalId, Long medicalSpecializationId, String reservationFirstName, String reservationLastName, String reservationEmail ,String reservationPhoneNumber) {
 
         try {

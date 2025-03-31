@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+// TODO : Refactor to BedReservation
 @Data
 @AllArgsConstructor
 public class BedReservationResponseDTO {
