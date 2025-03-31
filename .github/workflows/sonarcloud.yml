@@ -61,8 +61,7 @@ jobs:
       - name: Build and analyze ${{ matrix.service }}
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -f backend/${{ matrix.service }}/pom.xml \
-          -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+        run: mvn -f backend/${{ matrix.service }}/pom.xml -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
           -D sonar.projectKey=swyth-dev_${{ matrix.service }} \
           -D sonar.pullrequest.key=${{ github.event.number }} \
           -D sonar.pullrequest.branch=${{ github.head_ref }} \
@@ -94,7 +93,7 @@ jobs:
       - name: Run Tests with Coverage
         run: |
           cd frontend/realtime-emergency-app
-          npm run test -- --code-coverage
+          npm run test -- --code-coverage ng test --code-coverage --watch=false --browsers=ChromeHeadless --no-sandbox=true
 
       - name: Install SonarScanner
         run: npm install -g sonar-scanner
