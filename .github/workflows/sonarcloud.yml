@@ -8,7 +8,6 @@ on:
     types: [opened, synchronize, reopened]
 
 env:
-  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 permissions:
@@ -67,6 +66,8 @@ jobs:
               -D sonar.pullrequest.branch=${{ github.head_ref }} \
               -D sonar.pullrequest.base=${{ github.base_ref }} \
               -D sonar.pullrequest.github.repository=${{ github.repository }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 
   # Frontend Angular App Scan
@@ -116,3 +117,5 @@ jobs:
           -D sonar.pullrequest.branch=${{ github.head_ref }} \
           -D sonar.pullrequest.base=${{ github.base_ref }} \
           -D sonar.pullrequest.github.repository=${{ github.repository }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
