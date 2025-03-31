@@ -25,6 +25,8 @@ import {
     MatCardActions,
     MatCardContent,
     MatCardTitle,
+    MatCardHeader,
+    MatCardSubtitle,
     MatCard,
     MatCardHeader,
     FormsModule
