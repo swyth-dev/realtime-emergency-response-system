@@ -15,7 +15,7 @@ permissions:
   pull-requests: read # allows SonarCloud to decorate PRs with analysis results
 
 jobs:
-  backend_sonar_scan:
+  backend-sonar-scan:
     name: Build and analyze Backend with SonarQube
 
     runs-on: ubuntu-latest
@@ -69,49 +69,49 @@ jobs:
               -D sonar.pullrequest.github.repository=${{ github.repository }}
 
 
-    # Frontend Angular App Scan
-    frontend_sonar_scan:
-      name: Frontend Build and Analyze with SonarQube
+  # Frontend Angular App Scan
+  frontend-sonar-scan:
+    name: Frontend Build and Analyze with SonarQube
 
-      runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v4
-          with:
-            fetch-depth: 0
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-        - name: Set up Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 20 # Use a Node.js version compatible with Angular
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # Use a Node.js version compatible with Angular
 
-        - name: Install Dependencies
-          run: |
-            cd ../../frontend/realtime-emergency-app
-            npm ci
+      - name: Install Dependencies
+        run: |
+          cd ../../frontend/realtime-emergency-app
+          npm ci
 
-        - name: Run Tests with Coverage
-          run: |
-            ../../frontend/realtime-emergency-app
-            npm run test -- --code-coverage
+      - name: Run Tests with Coverage
+        run: |
+          ../../frontend/realtime-emergency-app
+          npm run test -- --code-coverage
 
-        - name: Install SonarScanner
-          run: npm install -g sonar-scanner
+      - name: Install SonarScanner
+        run: npm install -g sonar-scanner
 
-        - name: Analyze with SonarQube
-          run: |
-            cd ../../frontend/realtime-emergency-app
-            sonar-scanner \
-            -D sonar.projectKey=swyth-dev_frontend \
-            -D sonar.organization=swyth-dev \
-            -D sonar.sources=src \
-            -D sonar.exclusions=**/node_modules/**,**/*.spec.ts,**/dist/** \
-            -D sonar.tests=src \
-            -D sonar.test.inclusions=**/*.spec.ts \
-            -D sonar.typescript.lcov.reportPaths=coverage/lcov.info \
-            -D sonar.sourceEncoding=UTF-8 \
-            -D sonar.pullrequest.key=${{ github.event.number }} \
-            -D sonar.pullrequest.branch=${{ github.head_ref }} \
-            -D sonar.pullrequest.base=${{ github.base_ref }} \
-            -D sonar.pullrequest.github.repository=${{ github.repository }}
+      - name: Analyze with SonarQube
+        run: |
+          cd ../../frontend/realtime-emergency-app
+          sonar-scanner \
+          -D sonar.projectKey=swyth-dev_frontend \
+          -D sonar.organization=swyth-dev \
+          -D sonar.sources=src \
+          -D sonar.exclusions=**/node_modules/**,**/*.spec.ts,**/dist/** \
+          -D sonar.tests=src \
+          -D sonar.test.inclusions=**/*.spec.ts \
+          -D sonar.typescript.lcov.reportPaths=coverage/lcov.info \
+          -D sonar.sourceEncoding=UTF-8 \
+          -D sonar.pullrequest.key=${{ github.event.number }} \
+          -D sonar.pullrequest.branch=${{ github.head_ref }} \
+          -D sonar.pullrequest.base=${{ github.base_ref }} \
+          -D sonar.pullrequest.github.repository=${{ github.repository }}
