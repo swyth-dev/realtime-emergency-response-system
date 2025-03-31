@@ -27,7 +27,11 @@ public class BedReservationController {
         try {
             return bedReservationService.createBedReservation(
                     bedReservationRequest.getHospitalId(),
-                    bedReservationRequest.getMedicalSpecializationId()
+                    bedReservationRequest.getMedicalSpecializationId(),
+                    bedReservationRequest.getReservationFirstName(),
+                    bedReservationRequest.getReservationLastName(),
+                    bedReservationRequest.getReservationEmail(),
+                    bedReservationRequest.getReservationPhoneNumber()
             );
         } catch (BedUnavailableException exception) {
             throw new BedUnavailableException(exception.getMessage());

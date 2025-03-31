@@ -23,7 +23,7 @@ public class BedReservationService {
         this.streamBridge = streamBridge;
     }
 
-    public ResponseEntity<BedReservationResponseDTO> createBedReservation(Long hospitalId, Long medicalSpecializationId) {
+    public ResponseEntity<BedReservationResponseDTO> createBedReservation(Long hospitalId, Long medicalSpecializationId, String reservationFirstName, String reservationLastName, String reservationEmail ,String reservationPhoneNumber) {
 
         try {
             // Check bed availability via external API
@@ -34,7 +34,7 @@ public class BedReservationService {
             }
 
             // Proceed to create a bed reservation
-            BedReservation reservation = new BedReservation(hospitalId, medicalSpecializationId);
+            BedReservation reservation = new BedReservation(hospitalId, medicalSpecializationId, reservationFirstName, reservationLastName, reservationEmail, reservationPhoneNumber);
 
             // Save the reservation & Send the message through a Data Binder for Event-Driven Architecture
             BedReservation bedReservationBooked = bedReservationRepository.save(reservation);
@@ -42,7 +42,6 @@ public class BedReservationService {
 
             return ResponseEntity.ok(BedReservationResponseDtoMapper.convertToDTO(reservation));
         } catch (FeignException.NotFound exception) {
-            // Handle 404 Not Found
             throw new BedUnavailableException("No bed is available in the hospital ID " + hospitalId + " for the given specialization ID " + medicalSpecializationId + ".");
         }
     }
