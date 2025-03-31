@@ -2,7 +2,9 @@ package com.swyth.hospitalservice.controller;
 
 import com.swyth.hospitalservice.dto.EmergencyLocationDTO;
 import com.swyth.hospitalservice.dto.HospitalDTO;
+import com.swyth.hospitalservice.dto.MedicalSpecializationDTO;
 import com.swyth.hospitalservice.dto.NearestHospitalDTO;
+import com.swyth.hospitalservice.exception.ResourceNotFoundException;
 import com.swyth.hospitalservice.service.HospitalService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,16 @@ public class HospitalController {
     public ResponseEntity<List<HospitalDTO>> getHospitals() {
         List<HospitalDTO> hospitals = hospitalService.findAll();
         return ResponseEntity.ok(hospitals);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<HospitalDTO> getHospitalById(@PathVariable Long id) {
+        try {
+            HospitalDTO hospital = hospitalService.findById(id);
+            return ResponseEntity.ok(hospital);
+        } catch (ResourceNotFoundException exception) {
+            throw new ResourceNotFoundException(exception.getMessage());
+        }
     }
 
     /**

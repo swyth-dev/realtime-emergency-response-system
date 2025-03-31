@@ -1,11 +1,9 @@
 package com.swyth.hospitalservice.service;
 
-import com.swyth.hospitalservice.dto.HospitalDTO;
-import com.swyth.hospitalservice.dto.HospitalDtoMapper;
-import com.swyth.hospitalservice.dto.NearestHospitalDTO;
-import com.swyth.hospitalservice.dto.NearestHospitalDtoMapper;
+import com.swyth.hospitalservice.dto.*;
 import com.swyth.hospitalservice.entity.Hospital;
 import com.swyth.hospitalservice.entity.HospitalBedAvailability;
+import com.swyth.hospitalservice.entity.MedicalSpecialization;
 import com.swyth.hospitalservice.exception.ResourceNotFoundException;
 import com.swyth.hospitalservice.repository.HospitalBedAvailabilityRepository;
 import com.swyth.hospitalservice.repository.HospitalRepository;
@@ -34,6 +32,12 @@ public class HospitalService {
         }
 
         return HospitalDtoMapper.convertToDTO(hospitals);
+    }
+
+    public HospitalDTO findById(Long id) {
+        Hospital hospital = hospitalRepository.findById(id).
+                orElseThrow(() -> new ResourceNotFoundException("Hospital not found wth id: " + id));
+        return HospitalDtoMapper.convertToDTO(hospital);
     }
 
 
