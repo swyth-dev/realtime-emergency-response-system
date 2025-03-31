@@ -26,9 +26,13 @@
         <tag/>
         <url/>
     </scm>
+
     <properties>
         <java.version>21</java.version>
+        <sonar.organization>swyth-dev</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
