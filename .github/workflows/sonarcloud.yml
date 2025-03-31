@@ -93,7 +93,7 @@ jobs:
       - name: Run Tests with Coverage
         run: |
           cd frontend/realtime-emergency-app
-          npm run test -- --code-coverage ng test --code-coverage --watch=false --browsers=ChromeHeadless --no-sandbox=true
+          npm run test -- --code-coverage --watch=false --browsers=ChromeHeadless --no-sandbox=true
 
       - name: Install SonarScanner
         run: npm install -g sonar-scanner
