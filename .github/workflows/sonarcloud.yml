@@ -60,7 +60,7 @@ jobs:
 
       # Step 5: Build and analyze each service
       - name: Build and analyze ${{ matrix.service }}
-        run: mvn -f ../../backend/${{ matrix.service }}/pom.xml \
+        run: mvn -f backend/${{ matrix.service }}/pom.xml \
               -B  verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
               -D sonar.projectKey=swyth-dev_${{ matrix.service }} \
               -D sonar.pullrequest.key=${{ github.event.number }} \
@@ -88,12 +88,12 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          cd ../../frontend/realtime-emergency-app/
+          cd frontend/realtime-emergency-app/
           npm ci
 
       - name: Run Tests with Coverage
         run: |
-          ../../frontend/realtime-emergency-app/
+          frontend/realtime-emergency-app/
           npm run test -- --code-coverage
 
       - name: Install SonarScanner
@@ -101,7 +101,7 @@ jobs:
 
       - name: Analyze with SonarQube
         run: |
-          cd ../../frontend/realtime-emergency-app/
+          cd frontend/realtime-emergency-app/
           sonar-scanner \
           -D sonar.projectKey=swyth-dev_frontend \
           -D sonar.organization=swyth-dev \
