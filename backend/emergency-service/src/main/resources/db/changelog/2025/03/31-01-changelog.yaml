@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1743433427199-1
+      author: yoann
+      changes:
+        - addColumn:
+            tableName: "bed_reservation"
+            columns:
+              - column:
+                  name: "reservation_email"
+                  type: "VARCHAR(255)"
+              - column:
+                  name: "reservation_first_name"
+                  type: "VARCHAR(255)"
+              - column:
+                  name: "reservation_last_name"
+                  type: "VARCHAR(255)"
+              - column:
+                  name: "reservation_phone_number"
+                  type: "VARCHAR(255)"
+  - changeSet:
+      id: 1743433427199-2
+      author: yoann
+      changes:
+        - addNotNullConstraint:
+            columnName: "reservation_email"
+            tableName: "bed_reservation"
+  - changeSet:
+      id: 1743433427199-4
+      author: yoann
+      changes:
+        - addNotNullConstraint:
+            columnName: "reservation_first_name"
+            tableName: "bed_reservation"
+  - changeSet:
+      id: 1743433427199-6
+      author: yoann
+      changes:
+        - addNotNullConstraint:
+            columnName: "reservation_last_name"
+            tableName: "bed_reservation"
+  - changeSet:
+      id: 1743433427199-8
+      author: yoann
+      changes:
+        - addNotNullConstraint:
+            columnName: "reservation_phone_number"
+            tableName: "bed_reservation"

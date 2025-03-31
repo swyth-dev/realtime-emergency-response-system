@@ -7,3 +7,6 @@ databaseChangeLog:
   - include:
       file: /2025/03/18-02-changelog.yaml
       relativeToChangelogFile: true
+  - include:
+      file: /2025/03/31-01-changelog.yaml
+      relativeToChangelogFile: true
