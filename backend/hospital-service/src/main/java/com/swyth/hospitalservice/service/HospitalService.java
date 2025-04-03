@@ -36,7 +36,7 @@ public class HospitalService {
 
     public HospitalDTO findById(Long id) {
         Hospital hospital = hospitalRepository.findById(id).
-                orElseThrow(() -> new ResourceNotFoundException("Hospital not found wth id: " + id));
+                orElseThrow(() -> new ResourceNotFoundException("Hospital not found with id: " + id));
         return HospitalDtoMapper.convertToDTO(hospital);
     }
 
