@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:test_database;DB_CLOSE_DELAY=-1;INIT=CREATE SCHEMA IF NOT EXISTS medhead_emergency_service\\;SET SCHEMA medhead_emergency_service;
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    properties:
+      hibernate:
+        default_schema: medhead_emergency_service # Specify the schema name explicitly here
+        dialect: org.hibernate.dialect.H2Dialect
+    show-sql: true # Show & Debug SQL request
+  liquibase:
+    enabled: false  # Desactivate liquibase and preliquibase for faster execution
+preliquibase:
+  enabled: false
+
+eureka:
+  client:
+    enabled: false # Disable Eureka during tests
+
+logging:
+  level:
+    root: INFO                          # Default level for all loggers
+    org.springframework.jdbc: WARN      # Avoid SQL statements unless debugging
+    org.springframework.boot.context.properties: WARN # Avoid noisy binding logs unless needed
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
