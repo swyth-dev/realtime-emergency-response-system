@@ -1,0 +1,53 @@
+# Simple service config
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    discovery:
+      enabled: true
+    # Main static gateway configuration
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true
+      routes:
+        # Group for hospital-service (specializations + hospitals)
+        - id: hospital-service
+          uri: http://localhost:8081
+          predicates:
+            # Matches /specializations and subpaths
+            - Path=/v1/specializations
+            - Path=/v1/specializations/**
+            # Matches /hospitals and subpaths
+            - Path=/v1/hospitals
+            - Path=/v1/hospitals/**
+          filters:
+            # Rewrite /v1/specializations -> /hospital-service/v1/specializations
+            - RewritePath=/v1/specializations(?<remainingPath>/?.*), /hospital-service/v1/specializations${remainingPath}
+            # Rewrite /v1/hospitals -> /hospital-service/v1/hospitals
+            - RewritePath=/v1/hospitals/(?<remainingPath>.*), /hospital-service/v1/hospitals/${remainingPath}
+
+        # Group for emergency-service (bed reservations)
+        - id: emergency-service
+          uri: http://localhost:8082
+          predicates:
+            # Matches /v1/bed-reservations and subpaths
+            - Path=/v1/bed-reservations
+            - Path=/v1/bed-reservations/**
+          filters:
+            # Rewrite /v1/bed-reservations -> /emergency-service/v1/bed-reservations
+            - RewritePath=/v1/bed-reservations(?<remainingPath>/?.*), /emergency-service/v1/bed-reservations${remainingPath}
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+# Exposing port
+server:
+  port: 8888
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
