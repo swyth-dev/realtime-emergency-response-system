@@ -3,6 +3,7 @@ package com.swyth.hospitalservice.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
@@ -13,6 +14,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Hospital {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,18 +42,5 @@ public class Hospital {
         private Long id;
         private String name;
         private int bedsAvailable;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Hospital hospital = (Hospital) o;
-        return Objects.equals(id, hospital.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
     }
 }
