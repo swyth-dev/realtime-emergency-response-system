@@ -71,8 +71,7 @@
         <!-- Action Buttons -->
         <div class="actions">
           <mat-card-actions>
-            <button mat-raised-button color="primary" [disabled]="bookingForm.invalid || isLoading"
-                    (click)="onReserveBed()">
+            <button mat-raised-button color="primary" type="submit" [disabled]="bookingForm.invalid || isLoading">
               Confirm Reservation
             </button>
           </mat-card-actions>
