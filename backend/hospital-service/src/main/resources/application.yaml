@@ -25,7 +25,7 @@ spring:
     config:
       discovery:
         enabled: true
-      enabled: false # Switch to false if you add config server
+      enabled: false # Switch to true if you add config server
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
