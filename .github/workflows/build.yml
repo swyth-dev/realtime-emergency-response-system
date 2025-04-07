@@ -47,8 +47,8 @@ jobs:
         run: |
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
           -Dsonar.projectKey=swyth-dev_realtime-emergency-response-system-${{ matrix.microservice }} \
-          -f backend/${{ matrix.microservice }} \
-          -am
+          -Dsonar.projectName=${{ matrix.service }} \
+          -f backend/${{ matrix.microservice }}
       
       - name: Save build artifacts
         uses: actions/upload-artifact@v4
