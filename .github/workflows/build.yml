@@ -37,7 +37,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles(format('main-app/{0}/pom.xml', matrix.microservice)) }}
+          key: ${{ runner.os }}-m2-${{ hashFiles(format('backend/{0}/pom.xml', matrix.microservice)) }}
           restore-keys: ${{ runner.os }}-m2
       
       - name: Build and analyze
