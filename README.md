@@ -39,3 +39,5 @@ Nous utilisons Liquibase pour versionner les changements de structure, gérer le
 
 > 💡 Nous utilisons le plugin [IntelliJ JPA Buddy](https://plugins.jetbrains.com/plugin/15075-jpa-buddy) pour générer les changelogs à partir des entités JPA, évitant ainsi les scripts SQL manuels.
 > Toutes les modifications proviennent directement du modèle de domaine.
+>
+> 
