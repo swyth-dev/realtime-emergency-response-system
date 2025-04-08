@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @ResponseBody
 @RequestMapping("/v1/bed-availabilities")
-@CrossOrigin(origins = "*", allowedHeaders = "*") //TODO: don't let it like that in Production env
+//@CrossOrigin(origins = "*", allowedHeaders = "*") //TODO: don't let it like that in Production env
 public class HospitalBedAvailabilityController {
     private final HospitalBedAvailabilityService hospitalBedAvailabilityService;
 

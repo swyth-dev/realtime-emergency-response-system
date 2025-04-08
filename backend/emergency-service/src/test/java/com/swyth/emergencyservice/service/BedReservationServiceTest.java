@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.http.ResponseEntity;
+import reactor.core.scheduler.Schedulers;
 
 import java.util.Optional;
 
@@ -38,6 +39,14 @@ class BedReservationServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this); // Initialize mocks
+
+        // Création manuelle du service avec un scheduler de test
+        bedReservationService = new BedReservationService(
+                bedReservationRepository,
+                hospitalBedAvailabilityRestClient,
+                streamBridge,
+                Schedulers.immediate() // Utilises un scheduler immédiat pour les tests
+        );
     }
 
     @Test
@@ -75,9 +84,10 @@ class BedReservationServiceTest {
         when(bedReservationRepository.save(any(BedReservation.class))).thenReturn(mockedReservation);
 
         // Act
-        ResponseEntity<BedReservationResponseDTO> response = bedReservationService.createBedReservation(hospitalId, medicalSpecializationId, firstName, lastName, email, phoneNumber);
+        ResponseEntity<BedReservationResponseDTO> response = bedReservationService.createBedReservation(hospitalId, medicalSpecializationId, firstName, lastName, email, phoneNumber).block();
 
         // Assert
+        assert response != null;
         assertNotNull(response.getBody(), "The response body should not be null.");
         assertEquals(firstName, response.getBody().getReservationFirstName(), "The reservation first name should match.");
         assertEquals(lastName, response.getBody().getReservationLastName(), "The reservation last name should match.");
@@ -106,7 +116,7 @@ class BedReservationServiceTest {
 
         // Act & Assert
         BedUnavailableException exception = assertThrows(BedUnavailableException.class, () -> {
-            bedReservationService.createBedReservation(hospitalId, medicalSpecializationId, firstName, lastName, email, phoneNumber);
+            bedReservationService.createBedReservation(hospitalId, medicalSpecializationId, firstName, lastName, email, phoneNumber).block();
         });
 
         assertEquals("No bed is available in the hospital ID 1 for the given specialization ID 101.", exception.getMessage());
@@ -133,7 +143,7 @@ class BedReservationServiceTest {
 
         // Act & Assert
         BedUnavailableException exception = assertThrows(BedUnavailableException.class, () -> {
-            bedReservationService.createBedReservation(hospitalId, medicalSpecializationId, firstName, lastName, email, phoneNumber);
+            bedReservationService.createBedReservation(hospitalId, medicalSpecializationId, firstName, lastName, email, phoneNumber).block();
         });
 
         assertEquals("No bed is available in the hospital ID 2 for the given specialization ID 202.", exception.getMessage());

@@ -12,7 +12,7 @@ import java.util.List;
 @Controller
 @RestController
 @RequestMapping("/v1/specializations")
-@CrossOrigin(origins = "*", allowedHeaders = "*") //TODO: don't let it like that in Production env
+//@CrossOrigin(origins = "*", allowedHeaders = "*") //TODO: don't let it like that in Production env
 public class MedicalSpecializationController {
     private final MedicalSpecializationService medicalSpecializationService;
 
