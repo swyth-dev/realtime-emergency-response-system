@@ -6,7 +6,7 @@
 
 ## Diagramme d'architecture
 
-
+![Diagrame d'architecture logicielle de la PoC](./doc/diagrams/Medhead_Architecture.png)
 
 > Note : Dans le cadre des développements, une seule base de données est démarrée, avec des schémas différents initalisé par chaque microservice.
 
