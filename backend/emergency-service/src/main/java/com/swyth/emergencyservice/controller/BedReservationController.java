@@ -8,11 +8,12 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 @Controller
 @RestController
 @RequestMapping("/v1/bed-reservations")
-@CrossOrigin(origins = "*", allowedHeaders = "*") //TODO: don't let it like that in Production env
+//@CrossOrigin(origins = "*", allowedHeaders = "*") //TODO: don't let it like that in Production env
 public class BedReservationController {
     private final BedReservationService bedReservationService;
 
@@ -28,7 +29,7 @@ public class BedReservationController {
     }
 
     @PostMapping("")
-    public ResponseEntity<BedReservationResponseDTO> createBedReservation(@Valid @RequestBody BedReservationDTO bedReservationRequest) {
+    public Mono<ResponseEntity<BedReservationResponseDTO>> createBedReservation(@Valid @RequestBody BedReservationDTO bedReservationRequest) {
         try {
             return bedReservationService.createBedReservation(
                     bedReservationRequest.getHospitalId(),
