@@ -10,7 +10,7 @@ import {BedReservationResponse} from '../interfaces/bed-reservation-response';
   providedIn: 'root'
 })
 export class EmergencyService {
-  private baseUrl = environment.emergencyServiceBaseUrl;
+  private baseUrl = environment.apiBaseUrl;
 
   constructor(private http: HttpClient) {}
 

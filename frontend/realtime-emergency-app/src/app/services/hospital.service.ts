@@ -11,7 +11,7 @@ import {Hospital} from '../interfaces/hospital';
   providedIn: 'root'
 })
 export class HospitalService {
-  private baseUrl = environment.hospitalServiceBaseUrl;
+  private baseUrl = environment.apiBaseUrl;
 
   constructor(private http: HttpClient) {}
 
