@@ -1,26 +1,30 @@
-# Simple service config
+# Spring application configuration
 spring:
   application:
-    name: gateway-service
+    name: gateway-service # Name of the Spring Boot application
   cloud:
     discovery:
-      enabled: true
-    # Main static gateway configuration
+      enabled: true # Enables service discovery for the application
     gateway:
+      # Main configuration for Spring Cloud Gateway
       discovery:
         locator:
-          lower-case-service-id: true
-          enabled: true
+          lower-case-service-id: true # Converts service IDs to lowercase for routing
+          enabled: true # Enables service discovery-based routing
+
+# Eureka Client configuration for service registration and discovery
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://localhost:8761/eureka # Base URL of the Eureka server
   instance:
-    prefer-ip-address: true
-# Exposing port
-server:
-  port: 8888
+    prefer-ip-address: true # Use IP address instead of hostname for registration
 
+# Server configuration
+server:
+  port: 8888 # Exposes service on port 8888
+
+# Logging configuration
 logging:
   level:
-    org.springframework.cloud.gateway: DEBUG
+    org.springframework.cloud.gateway: DEBUG # Enables detailed debug logging for Spring Cloud Gateway

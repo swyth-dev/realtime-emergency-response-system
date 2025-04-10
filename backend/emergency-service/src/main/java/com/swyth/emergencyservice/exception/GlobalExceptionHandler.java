@@ -14,8 +14,18 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * GlobalExceptionHandler is a centralized exception handler class that provides
+ * consistent error responses for exceptions occurring throughout the application.
+ *
+ * This class uses the @ControllerAdvice annotation to enable global exception
+ * handling across the application's controllers. It contains methods annotated
+ * with @ExceptionHandler to handle specific exceptions and tailor the error
+ * responses accordingly.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
 
     // Handle bad formatted requests
     @ExceptionHandler(WebExchangeBindException.class)

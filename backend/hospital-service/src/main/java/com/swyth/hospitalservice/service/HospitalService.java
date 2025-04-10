@@ -16,6 +16,20 @@ import java.util.stream.Collectors;
 
 @Service
 public class HospitalService {
+    /**
+     * Repository instance for managing hospital bed availability data.
+     *
+     * This variable holds a reference to the {@code HospitalBedAvailabilityRepository}, which
+     * provides methods to interact with the database for CRUD operations and custom queries
+     * related to {@code HospitalBedAvailability} entities. It is used in the service layer
+     * to fetch and manage details about the availability of hospital beds for specific medical
+     * specializations.
+     *
+     * Responsibilities:
+     * - Facilitates data retrieval and persistence concerning hospital bed availability.
+     * - Supports operations such as fetching all hospital bed availability entries and
+     *   finding entries by specific attributes like hospital and specialization.
+     */
     private final HospitalBedAvailabilityRepository hospitalBedAvailabilityRepository;
     private final HospitalRepository hospitalRepository;
 
@@ -41,6 +55,19 @@ public class HospitalService {
     }
 
 
+    /**
+     * Finds the nearest hospital with available beds for a specific medical specialization.
+     *
+     * This method calculates the nearest hospital based on a 2D Euclidean distance formula using latitude and longitude
+     * while considering only hospitals that have beds available for the specified medical specialization. If no hospital
+     * meets the criteria, the method throws a ResourceNotFoundException.
+     *
+     * @param medicalSpecializationId the ID of the medical specialization for which bed availability is being searched
+     * @param latitude the latitude of the location to calculate proximity
+     * @param longitude the longitude of the location to calculate proximity
+     * @return a DTO representing the nearest hospital with available beds for the specified specialization
+     * @throws ResourceNotFoundException if no hospital with the specified specialization or within the proximity is found
+     */
     public NearestHospitalDTO findNearestHospital(Long medicalSpecializationId, Double latitude, Double longitude) {
         // Fetch all hospitals with the given medical specialization
         List<HospitalBedAvailability> availabilities = hospitalBedAvailabilityRepository.findAll().stream()

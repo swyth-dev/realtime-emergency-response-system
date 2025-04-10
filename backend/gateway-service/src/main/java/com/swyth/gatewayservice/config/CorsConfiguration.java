@@ -11,6 +11,12 @@ import java.util.List;
 @Configuration
 public class CorsConfiguration {
 
+    /**
+     * Configures a CORS filter for handling Cross-Origin Resource Sharing (CORS) requests.
+     * This method defines allowed origins, methods, headers, and maximum age for preflight requests.
+     *
+     * @return a CorsWebFilter instance configured to manage CORS settings.
+     */
     @Bean
     public CorsWebFilter corsWebFilter() {
         org.springframework.web.cors.CorsConfiguration corsConfig = new org.springframework.web.cors.CorsConfiguration();
