@@ -5,7 +5,16 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
-// TODO: refactor to bed reservation Request/Payload
+/**
+ * Data Transfer Object for handling bed reservation requests.
+ *
+ * This class encapsulates the details required to create a bed reservation for a specific hospital
+ * and medical specialization. It includes information about the hospital, medical specialization,
+ * and the personal details of the individual making the reservation.
+ *
+ * Validation annotations are included for ensuring the integrity and correctness
+ * of the data provided in the request.
+ */
 @Data
 public class BedReservationDTO {
 

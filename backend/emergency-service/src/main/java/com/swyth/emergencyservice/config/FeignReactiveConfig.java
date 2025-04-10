@@ -6,6 +6,13 @@ import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 import java.util.concurrent.Executors;
 
+/**
+ * Configuration class for setting up reactive Feign components.
+ *
+ * This class defines custom configurations required for reactive Feign,
+ * including a scheduler for managing blocking operations in a reactive context, that fixed
+ * a blocking single thread operation error.
+ */
 @Configuration
 public class FeignReactiveConfig {
 

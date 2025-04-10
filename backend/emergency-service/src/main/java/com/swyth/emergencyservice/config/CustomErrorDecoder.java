@@ -10,6 +10,12 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.InputStream;
 import java.util.Map;
 
+/**
+ * CustomErrorDecoder is an implementation of the ErrorDecoder interface
+ * used to decode and handle HTTP error responses in a Feign client.
+ * It parses the error details from the response body and maps specific
+ * HTTP status codes to custom exceptions.
+ */
 public class CustomErrorDecoder implements ErrorDecoder {
 
     // Jackson ObjectMapper to parse JSON
