@@ -13,10 +13,26 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller for managing hospital-related endpoints.
+ *
+ * This controller serves as the entry point for hospital-related API requests,
+ * such as fetching details about all hospitals, retrieving a specific hospital by ID,
+ * and finding the nearest hospital based on a given location and medical specialization.
+ * It interacts with the service layer {@link HospitalService} to fetch and process hospital data.
+ *
+ * Endpoints:
+ * - GET /v1/hospitals: Retrieves a list of all hospitals.
+ * - GET /v1/hospitals/{id}: Fetches details of a specific hospital by its ID.
+ * - POST /v1/hospitals/nearest: Finds the nearest hospital based on location and specialization.
+ *
+ * Annotations:
+ * - {@code @Controller} and {@code @RestController}: Indicates this is a Spring controller for REST APIs.
+ * - {@code @RequestMapping("/v1/hospitals")}: Maps all endpoints to the base path.
+ */
 @Controller
 @RestController
 @RequestMapping("/v1/hospitals")
-//@CrossOrigin(origins = "*", allowedHeaders = "*") //TODO: don't let it like that in Production env
 public class HospitalController {
     private final HospitalService hospitalService;
 

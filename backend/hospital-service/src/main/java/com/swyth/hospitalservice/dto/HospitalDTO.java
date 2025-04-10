@@ -7,6 +7,29 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * Data Transfer Object (DTO) for representing hospital information.
+ *
+ * This class is used to encapsulate and transfer hospital data between layers of the
+ * application, typically from the service layer to the presentation layer. The DTO includes
+ * details about the hospital such as its name, location, and available specializations with
+ * their corresponding bed counts.
+ *
+ * Attributes:
+ * - id: Unique identifier for the hospital.
+ * - name: Name of the hospital.
+ * - address: Address of the hospital.
+ * - postCode: Postal code of the hospital's location.
+ * - city: City where the hospital is located.
+ * - latitude: Geographical latitude coordinate of the hospital.
+ * - longitude: Geographical longitude coordinate of the hospital.
+ * - specializations: List of medical specializations available in the hospital along with
+ *   the number of beds available for each specialization.
+ *
+ * Annotations:
+ * - The class is annotated with Lombok annotations (@Data, @NoArgsConstructor, @AllArgsConstructor)
+ *   to auto-generate getters, setters, equals, hashCode, and constructors.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -7,6 +7,34 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Utility class for mapping Hospital entities to their corresponding HospitalDTO representations.
+ *
+ * This class provides static methods for converting Hospital entities and collections of Hospital
+ * entities to data transfer objects (DTOs), making it easier to transfer data between application
+ * layers while decoupling the internal entity model from external representations.
+ *
+ * Features:
+ * - Converts a single Hospital entity to a HospitalDTO.
+ * - Converts a collection of Hospital entities (Set) to a list of HospitalDTOs, sorted by hospital ID.
+ *
+ * Methods:
+ * - The conversion process includes mapping hospital attributes (ID, name, address, etc.) and
+ *   available bed information for each medical specialization into the DTO.
+ * - Ensures the output DTOs are sorted by unique identifiers for consistency in representation.
+ *
+ * Annotations:
+ * - The class is utilitarian in purpose and is marked with a private constructor to prevent
+ *   instantiation.
+ *
+ * Usage:
+ * - The methods are designed to be used statically in services or business logic handling hospital
+ *   data transformation.
+ *
+ * Purpose:
+ * - Centralizes and standardizes the entity-to-DTO conversion logic, reducing code duplication
+ *   and ensuring consistency across the application.
+ */
 public class HospitalDtoMapper {
 
     private HospitalDtoMapper() {

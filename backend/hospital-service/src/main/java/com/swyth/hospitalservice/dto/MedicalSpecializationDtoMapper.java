@@ -12,6 +12,16 @@ public class MedicalSpecializationDtoMapper {
     private MedicalSpecializationDtoMapper() {
     }
 
+    /**
+     * Converts a {@link MedicalSpecialization} entity to a {@link MedicalSpecializationDTO}.
+     *
+     * This method transforms a {@link MedicalSpecialization} object into its corresponding
+     * Data Transfer Object (DTO), encapsulating details such as the specialization's ID,
+     * name, group, and associated hospital availability information.
+     *
+     * @param specialization the {@link MedicalSpecialization} entity to be converted
+     * @return the corresponding {@link MedicalSpecializationDTO} containing the transformed data
+     */
     public static MedicalSpecializationDTO convertToDTO(MedicalSpecialization specialization) {
         return new MedicalSpecializationDTO(
                 specialization.getId(),
