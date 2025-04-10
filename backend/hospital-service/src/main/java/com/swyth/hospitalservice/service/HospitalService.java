@@ -3,7 +3,6 @@ package com.swyth.hospitalservice.service;
 import com.swyth.hospitalservice.dto.*;
 import com.swyth.hospitalservice.entity.Hospital;
 import com.swyth.hospitalservice.entity.HospitalBedAvailability;
-import com.swyth.hospitalservice.entity.MedicalSpecialization;
 import com.swyth.hospitalservice.exception.ResourceNotFoundException;
 import com.swyth.hospitalservice.repository.HospitalBedAvailabilityRepository;
 import com.swyth.hospitalservice.repository.HospitalRepository;
@@ -12,8 +11,23 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
+/**
+ * Service class for managing hospital-related operations.
+ *
+ * This service provides methods to perform various operations such as
+ * retrieving all hospitals, finding hospitals by their ID, and locating
+ * the nearest hospital with available beds for a specific medical specialization.
+ * The service acts as a bridge between controllers and repositories, handling
+ * business logic and data transformations.
+ *
+ * Dependencies:
+ * - {@code HospitalBedAvailabilityRepository}: Manages data related to hospital bed availability.
+ * - {@code HospitalRepository}: Manages CRUD and query operations for hospital entities.
+ *
+ * Features:
+ * - Fetch all hospitals and return their details as DTOs.
+ * - Retrieve hospital details by their unique*/
 @Service
 public class HospitalService {
     /**

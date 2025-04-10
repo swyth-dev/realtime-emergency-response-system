@@ -7,6 +7,27 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Utility class responsible for mapping {@link MedicalSpecialization} entities
+ * to their corresponding {@link MedicalSpecializationDTO} representations.
+ *
+ * This mapper provides static methods to facilitate the transformation of entity objects
+ * into DTOs, making them suitable for use in the application's service or presentation layers.
+ * It handles conversions for both single entities and collections of entities.
+ *
+ * Functionalities:
+ * - Convert a single {@link MedicalSpecialization} entity to a {@link MedicalSpecializationDTO}.
+ * - Convert a collection (set) of {@link MedicalSpecialization} entities into a list of {@link MedicalSpecializationDTOs}.
+ *
+ * Characteristics:
+ * - Ensures that hospital availability details are accurately mapped and sorted by the hospital ID
+ *   for consistent and predictable results.
+ * - Implements transformations in a way that adheres to immutability principles, using streams and collectors.
+ *
+ * Usage:
+ * - This class is designed for use as a utility and therefore has a private constructor to prevent instantiation.
+ * - Methods are static and intended to be called directly on the class.
+ */
 public class MedicalSpecializationDtoMapper {
 
     private MedicalSpecializationDtoMapper() {

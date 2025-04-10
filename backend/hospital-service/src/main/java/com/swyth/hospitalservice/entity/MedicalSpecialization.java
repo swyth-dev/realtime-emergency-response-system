@@ -60,9 +60,51 @@ public class MedicalSpecialization {
     @Column(nullable = false, name = "specialization_group")
     private String group;
 
+    /**
+     * Represents the set of hospital bed availability records associated with a specific medical specialization.
+     *
+     * This field establishes a one-to-many relationship between the {@code MedicalSpecialization} entity
+     * and the {@code HospitalBedAvailability} entity. Each record in the set corresponds to the current
+     * bed availability for the specialization in a particular hospital.
+     *
+     * Key Features:
+     * - Mapped by the {@code specialization} field in the {@code HospitalBedAvailability} entity.
+     * - Uses cascading operations with {@code CascadeType.ALL}, allowing automatic persistence and removal
+     *   of associated entities.
+     * - Configured with {@code orphanRemoval = true} to automatically remove child entities that are no longer
+     *   associated with the parent {@code MedicalSpecialization}.
+     * - Fetched eagerly, ensuring all {@code HospitalBedAvailability} records are loaded alongside the parent
+     *   {@code MedicalSpecialization}.
+     *
+     * Purpose:
+     * - Tracks the availability of beds for this medical specialization across multiple hospitals.
+     * - Provides a means to navigate the relationship between medical specializations and hospital bed availability.
+     */
     @OneToMany(mappedBy = "specialization", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<HospitalBedAvailability> hospitalBedAvailabilities = new HashSet<>();
 
+    /**
+     * Represents the availability details of a hospital.
+     *
+     * This class encapsulates the essential information of a hospital, including its identification,
+     * name, location, geographic coordinates, and the current number of available beds.
+     *
+     * Key Attributes:
+     * - id: Unique identifier of the hospital.
+     * - name: Name of the hospital.
+     * - address: Complete address of the hospital.
+     * - postCode: Postal code of the hospital's location.
+     * - city: City where the hospital is located.
+     * - latitude: Geographic latitude of the hospital's location.
+     * - longitude: Geographic longitude of the hospital's location.
+     * - bedsAvailable: Number of beds currently available in the hospital.
+     *
+     * Annotations:
+     * - Lombok annotations are used to automate boilerplate code generation:
+     *   - @Data: Generates getters, setters, equals, hashCode, and toString methods.
+     *   - @NoArgsConstructor: Generates a no-argument constructor.
+     *   - @AllArgsConstructor: Generates an all-argument constructor.
+     */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
