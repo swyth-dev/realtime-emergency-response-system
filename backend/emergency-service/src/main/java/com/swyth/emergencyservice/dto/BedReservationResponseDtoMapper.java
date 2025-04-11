@@ -1,8 +1,6 @@
 package com.swyth.emergencyservice.dto;
 
 import com.swyth.emergencyservice.entity.BedReservation;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 /**
  * This class provides mapping functionality to convert a {@code BedReservation} entity
@@ -17,8 +15,6 @@ import lombok.NoArgsConstructor;
  * transforming domain objects into DTOs by providing a dedicated method
  * for the transformation process.
  */
-@NoArgsConstructor
-@AllArgsConstructor
 public class BedReservationResponseDtoMapper {
 
     /**
