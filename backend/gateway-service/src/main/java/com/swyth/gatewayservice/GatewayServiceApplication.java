@@ -16,6 +16,14 @@ public class GatewayServiceApplication {
 		SpringApplication.run(GatewayServiceApplication.class, args);
 	}
 
+	/**
+	 * Creates a {@link DiscoveryClientRouteDefinitionLocator} bean to dynamically define routes
+	 * based on services registered with a discovery client.
+	 *
+	 * @param rdc the reactive discovery client used to interact with the service registry
+	 * @param dlp the properties to customize the discovery locator's behavior
+	 * @return a {@link DiscoveryClientRouteDefinitionLocator} instance that defines routes based on discovered services
+	 */
 	@Bean
 	DiscoveryClientRouteDefinitionLocator locator(
 			ReactiveDiscoveryClient rdc, DiscoveryLocatorProperties dlp){

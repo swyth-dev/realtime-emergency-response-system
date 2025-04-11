@@ -17,6 +17,15 @@ package com.swyth.emergencyservice.exception;
  *   specific detail message about the unavailability of resources.
  */
 public class BedUnavailableException extends RuntimeException {
+    /**
+     * Constructs a new BedUnavailableException with a specific detail message.
+     *
+     * This exception is thrown when no beds are available in the specified hospital
+     * for the requested medical specialization. The message provides additional context
+     * about the unavailability of resources.
+     *
+     * @param message the detailed message explaining the reason for the exception
+     */
     public BedUnavailableException(String message) {
         super(message);
     }

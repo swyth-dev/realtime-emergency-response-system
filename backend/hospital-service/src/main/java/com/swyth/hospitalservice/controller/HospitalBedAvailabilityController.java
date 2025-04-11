@@ -45,6 +45,14 @@ import org.springframework.web.bind.annotation.*;
 public class HospitalBedAvailabilityController {
     private final HospitalBedAvailabilityService hospitalBedAvailabilityService;
 
+    /**
+     * Constructor for the HospitalBedAvailabilityController class.
+     *
+     * Initializes the controller with the provided HospitalBedAvailabilityService.
+     * This service is used to handle operations related to hospital bed availability.
+     *
+     * @param hospitalBedAvailabilityService the service for managing hospital bed availability
+     */
     public HospitalBedAvailabilityController(HospitalBedAvailabilityService hospitalBedAvailabilityService) {
         this.hospitalBedAvailabilityService = hospitalBedAvailabilityService;
     }

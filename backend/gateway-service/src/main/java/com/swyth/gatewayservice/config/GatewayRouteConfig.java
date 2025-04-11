@@ -24,6 +24,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class GatewayRouteConfig {
 
+    /**
+     * Configures custom routes for services using Spring Cloud Gateway's RouteLocator.
+     *
+     * This method defines routes that map specific paths to their corresponding services
+     * through load balancers, enabling communication between the API Gateway and backend services.
+     *
+     * @param builder the RouteLocatorBuilder used to build and configure the routes
+     * @return a RouteLocator containing the defined service routes
+     */
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()

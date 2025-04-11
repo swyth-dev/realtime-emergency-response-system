@@ -27,6 +27,17 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
 
+    /**
+     * Handles WebExchangeBindException to provide detailed error responses for bad formatted requests.
+     *
+     * This method constructs a standardized error response containing a timestamp, HTTP status code,
+     * error type, request path, and validation errors. The validation errors include details about
+     * fields that failed validation along with their corresponding error messages.
+     *
+     * @param ex the WebExchangeBindException that occurred, containing details of the validation errors
+     * @param exchange the ServerWebExchange object representing the current web exchange, used to retrieve the request path
+     * @return a ResponseEntity containing the error response with validation error details and an HTTP status code of 400 (Bad Request)
+     */
     // Handle bad formatted requests
     @ExceptionHandler(WebExchangeBindException.class)
     public ResponseEntity<Map<String, Object>> handleWebExchangeBindException(WebExchangeBindException ex, ServerWebExchange exchange) {
@@ -48,6 +59,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
+    /**
+     * Handles the BedUnavailableException and constructs a custom error response.
+     *
+     * This method is triggered whenever a BedUnavailableException is thrown in the
+     * application. It returns a standardized error response with relevant details such as
+     * timestamp, HTTP status code, error type, and a descriptive message.
+     *
+     * @param exception the BedUnavailableException that occurred
+     * @return a ResponseEntity containing the error response with details and an HTTP status code of 404 (Not Found)
+     */
     // Handle BedUnavailableException
     @ExceptionHandler(BedUnavailableException.class)
     public ResponseEntity<Object> handleBedUnavailableException(BedUnavailableException exception) {

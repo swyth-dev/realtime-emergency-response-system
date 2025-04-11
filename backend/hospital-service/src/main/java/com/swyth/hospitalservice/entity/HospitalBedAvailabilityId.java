@@ -26,6 +26,21 @@ import java.io.Serializable;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class HospitalBedAvailabilityId implements Serializable {
+    /**
+     * Represents the unique identifier of a hospital.
+     *
+     * This field is part of a composite primary key in the HospitalBedAvailability entity,
+     * linking a hospital with a specific medical specialization. It is used to uniquely
+     * identify a hospital associated with bed availability data.
+     */
     private Long hospitalId;
+
+    /**
+     * Represents the unique identifier for a medical specialization.
+     *
+     * This field is part of the composite primary key in the HospitalBedAvailability entity.
+     * It links a hospital with a specific medical specialization to manage and track
+     * bed availability data associated with that specialization.
+     */
     private Long medicalSpecializationId;
 }

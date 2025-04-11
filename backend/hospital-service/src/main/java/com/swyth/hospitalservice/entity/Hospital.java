@@ -60,6 +60,36 @@ public class Hospital {
     @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<HospitalBedAvailability> hospitalBedAvailabilities = new HashSet<>();
 
+    /**
+     * Represents the availability of a specific medical specialization within a hospital.
+     *
+     * The {@code SpecializationAvailability} class encapsulates the details of a medical
+     * specialization and the number of beds available for that specialization. It is
+     * typically used as a simplified view of the detailed hospital bed availability
+     * data for external communication or DTO transformations.
+     *
+     * Attributes:
+     * - id: Unique identifier of the medical specialization.
+     * - name: Name of the medical specialization.
+     * - bedsAvailable: Number of beds currently available for this specialization within the hospital.
+     *
+     * Annotations:
+     * - {@code @Data}: Automatically generates getters, setters, equals, hashCode,
+     *   and toString methods.
+     * - {@code @NoArgsConstructor}: Generates a no-argument constructor.
+     * - {@code @AllArgsConstructor}: Generates a constructor with all fields.
+     *
+     * Purpose:
+     * - Provides a concise representation of medical specialization and its bed
+     *   availability in the context of a hospital.
+     * - Used in DTOs like {@code HospitalDTO} to facilitate the transfer of
+     *   specialization availability data between layers of the application.
+     *
+     * Typical Use Cases:
+     * - Incorporated in data transfer objects (DTOs) to transfer specialization
+     *   and bed availability details.
+     * - Used in mapping hospital bed data to a simplified view for external consumers.
+     */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor

@@ -1,6 +1,8 @@
 package com.swyth.hospitalservice.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Represents a Data Transfer Object (DTO) for reserving hospital beds.
@@ -27,6 +29,8 @@ import lombok.Data;
  * - Simplifies service method inputs by wrapping necessary identifiers into a single object.
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BedReservationDTO {
     private Long id;
     private Long hospitalId;
