@@ -19,6 +19,12 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 @EnableEurekaServer
 public class DiscoveryServiceApplication {
 
+    /**
+     * The entry point of the Discovery Service application.
+     * This method initializes and runs the Spring Boot application which acts as a Eureka Server for service discovery.
+     *
+     * @param args command-line arguments passed to the application.
+     */
     public static void main(String[] args) {
         SpringApplication.run(DiscoveryServiceApplication.class, args);
     }

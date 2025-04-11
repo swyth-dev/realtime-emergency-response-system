@@ -40,6 +40,17 @@ public class HospitalDtoMapper {
     private HospitalDtoMapper() {
     }
 
+    /**
+     * Converts a {@link Hospital} entity to its corresponding {@link HospitalDTO}.
+     *
+     * The conversion involves mapping the hospital's attributes, including basic details
+     * such as ID, name, address, and location (latitude and longitude), as well as
+     * available beds for each specialization, into a data transfer object (DTO).
+     * Specializations are sorted by their IDs, with nulls handled appropriately.
+     *
+     * @param hospital the {@link Hospital} entity to be converted
+     * @return a {@link HospitalDTO} containing the mapped attributes from the given hospital entity
+     */
     public static HospitalDTO convertToDTO(Hospital hospital) {
         return new HospitalDTO(
                 hospital.getId(),

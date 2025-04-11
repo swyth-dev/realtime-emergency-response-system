@@ -53,6 +53,17 @@ public class MedicalSpecializationService {
         this.medicalSpecializationRepository = medicalSpecializationRepository;
     }
 
+    /**
+     * Retrieves all medical specializations available in the system.
+     *
+     * This method fetches all instances of medical specializations from the repository.
+     * It converts these entities into their corresponding DTO representations for use
+     * in higher application layers. If no specializations are found, an exception is thrown.
+     *
+     * @return a list of {@code MedicalSpecializationDTO} objects representing all
+     *         medical specializations available in the system.
+     * @throws ResourceNotFoundException if no medical specializations are found in the repository.
+     */
     public List<MedicalSpecializationDTO> findAll() {
         Set<MedicalSpecialization> specializations = new HashSet<>(medicalSpecializationRepository.findAll());
 
@@ -64,6 +75,18 @@ public class MedicalSpecializationService {
         return MedicalSpecializationDtoMapper.convertToDTO(specializations);
     }
 
+    /**
+     * Finds a medical specialization by its unique identifier (ID).
+     *
+     * This method retrieves a {@code MedicalSpecialization} entity from the repository using
+     * the provided ID. If the specialization is found, it is converted into a
+     * {@code MedicalSpecializationDTO} for further use. If no such specialization exists,
+     * a {@code ResourceNotFoundException} is thrown.
+     *
+     * @param id the unique identifier of the medical specialization to find
+     * @return a {@code MedicalSpecializationDTO} containing the details of the requested specialization
+     * @throws ResourceNotFoundException if no medical specialization is found with the given ID
+     */
     public MedicalSpecializationDTO findById(Long id) {
         MedicalSpecialization specialization = medicalSpecializationRepository.findById(id).
                 orElseThrow(() -> new ResourceNotFoundException("Medical Specialization not found for id: " + id));

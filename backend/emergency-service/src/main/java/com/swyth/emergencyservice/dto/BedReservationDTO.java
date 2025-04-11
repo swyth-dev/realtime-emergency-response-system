@@ -3,7 +3,9 @@ package com.swyth.emergencyservice.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Data Transfer Object for handling bed reservation requests.
@@ -16,6 +18,8 @@ import lombok.Data;
  * of the data provided in the request.
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BedReservationDTO {
 
     @NotNull(message = "Hospital ID must not be null")

@@ -57,13 +57,19 @@ public class HospitalController {
     }
 
     /**
-     * POST endpoint to retrieve the nearest hospital based on latitude and longitude.
-     * Rationale for POST:
-     * - Sensitive data (latitude, longitude) is sent in the request body for better security.
-     * - Avoids exposing data in query parameters, which can be logged or cached.
-     * - Suitable for operations involving calculations, such as identifying the nearest hospital.
-*    * @param locationDTO contains latitude, longitude, and specialization ID.
-*    * @return nearest hospital details.
+     * Finds the nearest hospital based on the given location and medical specialization.
+     *
+     * This method accepts an emergency location request containing latitude, longitude,
+     * and a medical specialization ID, and returns information about the nearest hospital
+     * that matches the criteria.
+     *
+     * @param emergencyLocationDTO DTO containing the required details for finding the nearest hospital:
+     *                              - medicalSpecializationId: The ID of the desired medical specialization.
+     *                              - latitude: The latitude of the given location.
+     *                              - longitude: The longitude of the given location.
+     * @return A ResponseEntity containing a NearestHospitalDTO that represents the nearest hospital
+     *         matching the given criteria, including details such as the hospital's name, address,
+     *         and geographic coordinates.
      */
     @PostMapping("/nearest")
     public ResponseEntity<NearestHospitalDTO> getNearestHospitals(@Valid @RequestBody EmergencyLocationDTO emergencyLocationDTO) {
@@ -76,4 +82,3 @@ public class HospitalController {
     }
 
 }
-// TODO : Virer tout ce qui ne sert à rien en endpoint

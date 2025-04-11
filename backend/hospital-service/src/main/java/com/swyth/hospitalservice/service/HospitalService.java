@@ -47,11 +47,31 @@ public class HospitalService {
     private final HospitalBedAvailabilityRepository hospitalBedAvailabilityRepository;
     private final HospitalRepository hospitalRepository;
 
+    /**
+     * Constructs a new HospitalService with the specified repositories.
+     *
+     * This constructor initializes the service with the necessary dependencies
+     * to interact with hospital and hospital bed availability data. The dependencies
+     * are injected via constructor injection.
+     *
+     * @param hospitalBedAvailabilityRepository the repository for managing hospital bed availability data
+     * @param hospitalRepository the repository for managing hospital entity data
+     */
     public HospitalService(HospitalBedAvailabilityRepository hospitalBedAvailabilityRepository, HospitalRepository hospitalRepository) {
         this.hospitalBedAvailabilityRepository = hospitalBedAvailabilityRepository;
         this.hospitalRepository = hospitalRepository;
     }
 
+    /**
+     * Retrieves a list of all hospitals and converts them to DTOs.
+     *
+     * This method fetches all hospital records from the repository, ensures there are
+     * no duplicates, and maps the resulting entities to data transfer objects (DTOs).
+     * If no hospitals are found, a {@code ResourceNotFoundException} is thrown.
+     *
+     * @return a list of {@code HospitalDTO} objects representing all hospitals in the system.
+     * @throws ResourceNotFoundException if no hospitals are found in the repository.
+     */
     public List<HospitalDTO> findAll() {
         Set<Hospital> hospitals = new HashSet<>(hospitalRepository.findAll());
 
@@ -62,6 +82,17 @@ public class HospitalService {
         return HospitalDtoMapper.convertToDTO(hospitals);
     }
 
+    /**
+     * Finds a hospital by its unique identifier and converts it into a DTO.
+     *
+     * This method retrieves a hospital entity from the repository using the provided
+     * ID. If no hospital is found, a {@code ResourceNotFoundException} is thrown. The
+     * retrieved hospital entity is then mapped to a {@code HospitalDTO}.
+     *
+     * @param id the unique identifier of the hospital to be retrieved
+     * @return a {@code HospitalDTO} representing the hospital with the specified ID
+     * @throws ResourceNotFoundException if no hospital is found with the given ID
+     */
     public HospitalDTO findById(Long id) {
         Hospital hospital = hospitalRepository.findById(id).
                 orElseThrow(() -> new ResourceNotFoundException("Hospital not found with id: " + id));

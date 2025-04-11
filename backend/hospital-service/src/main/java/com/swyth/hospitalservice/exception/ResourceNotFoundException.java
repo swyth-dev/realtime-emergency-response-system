@@ -19,6 +19,15 @@ import java.time.LocalDateTime;
 @Getter
 public class ResourceNotFoundException extends RuntimeException {
 
+    /**
+     * Constructs a new {@code ResourceNotFoundException} with the specified detail message.
+     *
+     * This exception is typically thrown when a requested resource cannot be found,
+     * such as when querying for entities in a database or searching for a specific
+     * item that does not exist.
+     *
+     * @param message the detail message describing the reason for the exception
+     */
     public ResourceNotFoundException(String message) {
         super(message); // Pass the message to parent RuntimeException
     }

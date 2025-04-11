@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  *
  * Functionalities:
  * - Convert a single {@link MedicalSpecialization} entity to a {@link MedicalSpecializationDTO}.
- * - Convert a collection (set) of {@link MedicalSpecialization} entities into a list of {@link MedicalSpecializationDTOs}.
+ * - Convert a collection (set) of {@link MedicalSpecialization} entities into a list of {@link MedicalSpecializationDTO}.
  *
  * Characteristics:
  * - Ensures that hospital availability details are accurately mapped and sorted by the hospital ID
@@ -64,6 +64,15 @@ public class MedicalSpecializationDtoMapper {
         );
     }
 
+    /**
+     * Converts a set of {@link MedicalSpecialization} entities to a list of {@link MedicalSpecializationDTO} objects.
+     *
+     * This method processes a given set of {@link MedicalSpecialization}, sorting them by their IDs in ascending order
+     * (with nulls appearing last), and maps each entity to its corresponding {@link MedicalSpecializationDTO}.
+     *
+     * @param specializations the set of {@link MedicalSpecialization} entities to be converted
+     * @return a list of {@link MedicalSpecializationDTO} objects corresponding to the provided entities
+     */
     public static List<MedicalSpecializationDTO> convertToDTO(Set<MedicalSpecialization> specializations) {
         return specializations.stream()
                 .sorted(Comparator.comparing(MedicalSpecialization::getId, Comparator.nullsLast(Comparator.naturalOrder())))

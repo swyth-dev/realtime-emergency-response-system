@@ -15,6 +15,15 @@ package com.swyth.hospitalservice.exception;
  *   meaningful response to the client.
  */
 public class BedUnavailableException extends RuntimeException {
+  /**
+   * Constructs a new BedUnavailableException with a specified message.
+   *
+   * This exception is used to indicate that no beds are available for a given
+   * medical specialization or hospital. The message provides additional details
+   * about the specific circumstance in which the exception is thrown.
+   *
+   * @param message the detail message explaining the reason for the exception
+   */
   public BedUnavailableException(String message) {
     super(message);
   }

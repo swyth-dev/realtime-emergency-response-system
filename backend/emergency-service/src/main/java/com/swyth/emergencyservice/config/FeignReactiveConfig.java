@@ -16,6 +16,15 @@ import java.util.concurrent.Executors;
 @Configuration
 public class FeignReactiveConfig {
 
+    /**
+     * Defines a scheduler for managing Feign client operations in a non-blocking
+     * reactive context. The scheduler uses a fixed thread pool with a capacity of 10
+     * threads to handle blocking operations more efficiently, reducing the risk of
+     * thread starvation in reactive pipelines.
+     *
+     * @return a {@link Scheduler} instance backed by a fixed thread pool for executing
+     *         blocking tasks within Feign clients.
+     */
     @Bean
     public Scheduler feignScheduler() {
         // Créer un thread pool dédié aux opérations bloquantes

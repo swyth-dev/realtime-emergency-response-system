@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Data Transfer Object representing a response for a bed reservation.
@@ -25,6 +26,7 @@ import lombok.Data;
  * - reservationPhoneNumber: The phone number of the person for whom the reservation is made.
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class BedReservationResponseDTO {
     private Long id;

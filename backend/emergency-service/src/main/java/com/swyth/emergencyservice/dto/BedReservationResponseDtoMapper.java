@@ -1,6 +1,8 @@
 package com.swyth.emergencyservice.dto;
 
 import com.swyth.emergencyservice.entity.BedReservation;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
  * This class provides mapping functionality to convert a {@code BedReservation} entity
@@ -15,8 +17,20 @@ import com.swyth.emergencyservice.entity.BedReservation;
  * transforming domain objects into DTOs by providing a dedicated method
  * for the transformation process.
  */
+@NoArgsConstructor
+@AllArgsConstructor
 public class BedReservationResponseDtoMapper {
 
+    /**
+     * Converts a {@code BedReservation} entity into a {@code BedReservationResponseDTO}.
+     *
+     * This method extracts the relevant fields from the {@code BedReservation} entity
+     * and constructs a corresponding {@code BedReservationResponseDTO} to provide
+     * a simplified data transfer representation of the reservation.
+     *
+     * @param reservation the {@code BedReservation} entity to be converted
+     * @return a {@code BedReservationResponseDTO} containing the reservation details
+     */
     public static BedReservationResponseDTO convertToDTO(BedReservation reservation) {
         return new BedReservationResponseDTO(
                 reservation.getId(),
